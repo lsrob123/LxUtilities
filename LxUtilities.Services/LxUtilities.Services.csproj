@@ -88,7 +88,7 @@
     <Compile Include="Caching\Redis\Config\CacheHost.cs" />
     <Compile Include="Caching\Redis\Config\CacheHostCollection.cs" />
     <Compile Include="Caching\Redis\Config\ICacheConfig.cs" />
-    <Compile Include="Domain\Messaging\DomainEventService.cs" />
+    <Compile Include="Core\Domain\Messaging\DomainEventService.cs" />
     <Compile Include="Logger\Log4Net\Logger.cs" />
     <Compile Include="Mapping\MappingServiceBase.cs" />
     <Compile Include="ServiceBus\_Shared\BusReadyEvent.cs" />

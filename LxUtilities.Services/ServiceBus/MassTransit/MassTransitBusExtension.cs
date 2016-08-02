@@ -9,7 +9,7 @@ namespace LxUtilities.Services.ServiceBus.MassTransit
     public static class MassTransitBusExtension
     {
         /// <summary>
-        /// Not working
+        ///     Not working
         /// </summary>
         /// <param name="bus"></param>
         /// <param name="hostUri"></param>

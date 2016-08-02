@@ -1,4 +1,4 @@
-﻿using LxUtilities.Services.Domain.Messaging;
+﻿using LxUtilities.Services.Core.Domain.Messaging;
 using LxUtilities.Services.Tests.Domain._ObjectMothers;
 using NUnit.Framework;
 

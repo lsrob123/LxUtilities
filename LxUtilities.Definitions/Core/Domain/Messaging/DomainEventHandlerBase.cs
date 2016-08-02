@@ -1,4 +1,4 @@
-﻿namespace LxUtilities.Definitions.Domain.Messaging
+﻿namespace LxUtilities.Definitions.Core.Domain.Messaging
 {
     public abstract class DomainEventHandlerBase<TEvent> : IDomainEventHandler
         where TEvent : class, IDomainEvent

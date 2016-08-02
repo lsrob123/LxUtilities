@@ -1,4 +1,4 @@
-﻿using LxUtilities.Definitions.Domain.Messaging;
+﻿using LxUtilities.Definitions.Core.Domain.Messaging;
 
 namespace LxUtilities.Services.Tests.Domain._ObjectMothers
 {

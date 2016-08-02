@@ -1,9 +1,8 @@
-﻿using LxUtilities.Definitions.DTOs;
+﻿using LxUtilities.Definitions.Core.DTOs;
 
 namespace LxUtilities.Definitions.ServiceBus.Messges
 {
-    public interface IBusEvent: IBusMessage, IEvent
+    public interface IBusEvent : IBusMessage, IEvent
     {
-         
     }
 }

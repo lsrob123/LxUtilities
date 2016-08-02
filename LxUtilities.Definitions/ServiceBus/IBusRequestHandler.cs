@@ -6,6 +6,5 @@ namespace LxUtilities.Definitions.ServiceBus
         where TRequest : class, IBusRequest
         where TResponse : class, IBusResponse
     {
-
     }
 }

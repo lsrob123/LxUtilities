@@ -7,6 +7,6 @@ namespace LxUtilities.Definitions.Caching
         bool Exists(string cacheKey);
         bool RemoveCachedItem(string cacheKey);
         T GetCachedItem<T>(string cacheKey);
-        bool SetCachedItem<T>(string cacheKey, T cachedItem, TimeSpan expiration ) where T : class;
+        bool SetCachedItem<T>(string cacheKey, T cachedItem, TimeSpan expiration) where T : class;
     }
 }

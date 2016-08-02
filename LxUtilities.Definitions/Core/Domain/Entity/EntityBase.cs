@@ -1,11 +1,9 @@
 ﻿using System;
 
-namespace LxUtilities.Definitions.Domain.Entity
+namespace LxUtilities.Definitions.Core.Domain.Entity
 {
     public abstract class EntityBase : IEntity
     {
-
-
         protected EntityBase()
         {
         }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using LxUtilities.Definitions.Domain.Messaging;
+using LxUtilities.Definitions.Core.Domain.Messaging;
 
-namespace LxUtilities.Services.Domain.Messaging
+namespace LxUtilities.Services.Core.Domain.Messaging
 {
     public class DomainEventService : IDomainEventService
     {

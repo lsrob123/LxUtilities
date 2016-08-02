@@ -1,7 +1,6 @@
-﻿namespace LxUtilities.Definitions.DTOs
+﻿namespace LxUtilities.Definitions.Core.DTOs
 {
     public interface ICommand : IDto
     {
-         
     }
 }

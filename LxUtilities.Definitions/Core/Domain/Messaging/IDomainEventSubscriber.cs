@@ -1,6 +1,6 @@
 using System;
 
-namespace LxUtilities.Definitions.Domain.Messaging
+namespace LxUtilities.Definitions.Core.Domain.Messaging
 {
     public interface IDomainEventSubscriber
     {

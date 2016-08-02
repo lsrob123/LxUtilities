@@ -1,4 +1,4 @@
-﻿namespace LxUtilities.Definitions.Domain.ValueObject
+﻿namespace LxUtilities.Definitions.Core.ValueObject
 {
     public abstract class GenericValueObjectBase<T> : IValueObject
     {

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace LxUtilities.Services.Serialization
 {
-    public class JsonSerializer:ISerializer
+    public class JsonSerializer : ISerializer
     {
         public string Serialize(object anyObject)
         {
