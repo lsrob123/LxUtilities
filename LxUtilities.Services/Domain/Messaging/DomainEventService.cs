@@ -15,8 +15,7 @@ namespace LxUtilities.Services.Domain.Messaging
         protected static readonly ReaderWriterLockSlim Lock =
             new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
 
-
-        public void Publish(IDomainEvent domainEvent)
+        public IDomainEventPublisher Publish(IDomainEvent domainEvent)
         {
             var eventType = domainEvent.GetType();
             List<IDomainEventHandler> handlers;
@@ -30,22 +29,22 @@ namespace LxUtilities.Services.Domain.Messaging
                 Lock.ExitReadLock();
             }
 
-            if (handlers == null)
-                return;
+            if (handlers != null)
+                Parallel.ForEach(handlers, handler => handler.Handle(domainEvent));
 
-            Parallel.ForEach(handlers, handler => handler.Handle(domainEvent));
+            return this;
         }
 
-        public void Subscribe<TEvent>(IDomainEventHandler handler)
+        public IDomainEventSubscriber Subscribe<TEvent>(IDomainEventHandler handler)
             where TEvent : IDomainEvent
         {
             var eventType = typeof (TEvent);
-            Subscribe(eventType, handler);
+            return Subscribe(eventType, handler);
         }
 
-        public void Subscribe(Type eventType, IDomainEventHandler handler)
+        public IDomainEventSubscriber Subscribe(Type eventType, IDomainEventHandler handler)
         {
-            if (!typeof(IDomainEvent).IsAssignableFrom(eventType))
+            if (!typeof (IDomainEvent).IsAssignableFrom(eventType))
                 throw new ArgumentOutOfRangeException(nameof(eventType));
 
             Lock.EnterUpgradeableReadLock();
@@ -81,6 +80,8 @@ namespace LxUtilities.Services.Domain.Messaging
             {
                 Lock.EnterUpgradeableReadLock();
             }
+
+            return this;
         }
     }
 }

@@ -1,11 +1,6 @@
-﻿using System;
-
-namespace LxUtilities.Definitions.Domain.Messaging
+﻿namespace LxUtilities.Definitions.Domain.Messaging
 {
-    public interface IDomainEventService
+    public interface IDomainEventService : IDomainEventPublisher, IDomainEventSubscriber
     {
-        void Publish(IDomainEvent domainEvent);
-        void Subscribe<TEvent>(IDomainEventHandler handler) where TEvent : IDomainEvent;
-        void Subscribe(Type eventType, IDomainEventHandler handler);
     }
 }

@@ -4,6 +4,8 @@ namespace LxUtilities.Definitions.Domain.Entity
 {
     public abstract class EntityBase : IEntity
     {
+
+
         protected EntityBase()
         {
         }

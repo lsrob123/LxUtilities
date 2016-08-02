@@ -12,6 +12,12 @@
             HandleAction(domainEvent);
         }
 
+        public DomainEventHandlerBase<TEvent> SubscribeWith(IDomainEventSubscriber domainEventSubscriber)
+        {
+            domainEventSubscriber.Subscribe<TEvent>(this);
+            return this;
+        }
+
         protected abstract void HandleAction(TEvent domainEvent);
     }
 }

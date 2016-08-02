@@ -13,7 +13,7 @@ namespace LxUtilities.Services.Tests.Domain._ObjectMothers
 
         protected override void HandleAction(SomeDomainEvent domainEvent)
         {
-            _somePortsService.MakeSomeChange();
+            _somePortsService.ProcessChange(domainEvent);
         }
     }
 }

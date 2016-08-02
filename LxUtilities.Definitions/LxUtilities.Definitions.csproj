@@ -45,9 +45,11 @@
     <Compile Include="Domain\Entity\EntityBase.cs" />
     <Compile Include="Domain\Messaging\DomainEventHandlerBase.cs" />
     <Compile Include="Domain\Messaging\IDomainEventHandler.cs" />
+    <Compile Include="Domain\Messaging\IDomainEventPublisher.cs" />
+    <Compile Include="Domain\Messaging\IDomainEventService.cs" />
+    <Compile Include="Domain\Messaging\IDomainEventSubscriber.cs" />
     <Compile Include="Domain\ValueObject\GenericValueObjectBase.cs" />
     <Compile Include="Domain\Messaging\IDomainEvent.cs" />
-    <Compile Include="Domain\Messaging\IDomainEventService.cs" />
     <Compile Include="Domain\Entity\IEntity.cs" />
     <Compile Include="Domain\ValueObject\IValueObject.cs" />
     <Compile Include="DTOs\ICommand.cs" />

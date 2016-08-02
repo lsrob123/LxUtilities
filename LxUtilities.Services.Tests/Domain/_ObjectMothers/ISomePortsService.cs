@@ -6,7 +6,7 @@ namespace LxUtilities.Services.Tests.Domain._ObjectMothers
     {
         SomeEntity Data { get; }
         Guid LatestValue { get; }
-        Guid MakeSomeChange();
+        Guid MakeSomeChangeAndGetNewValue();
         void ProcessChange(SomeDomainEvent domainEvent);
     }
 }
