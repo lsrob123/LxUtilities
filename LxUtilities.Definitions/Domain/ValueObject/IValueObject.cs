@@ -1,4 +1,4 @@
-﻿namespace LxUtilities.Definitions.Domain
+﻿namespace LxUtilities.Definitions.Domain.ValueObject
 {
     public interface IValueObject
     {

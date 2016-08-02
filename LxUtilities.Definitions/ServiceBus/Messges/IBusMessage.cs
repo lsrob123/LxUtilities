@@ -1,7 +1,8 @@
-﻿namespace LxUtilities.Definitions.ServiceBus.Messges
+﻿using LxUtilities.Definitions.DTOs;
+
+namespace LxUtilities.Definitions.ServiceBus.Messges
 {
-    public interface IBusMessage
+    public interface IBusMessage : IDto
     {
-         
     }
 }

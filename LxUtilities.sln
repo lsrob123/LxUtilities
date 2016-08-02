@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LxUtilities.Services", "LxU
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Utilities", "_Utilities", "{3FF503FC-39B0-46FC-9C86-02B80DF60DC1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{FC1656D6-D2C8-4A18-A564-B26E0B60C947}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{FC1656D6-D2C8-4A18-A564-B26E0B60C947}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LxUtilities.Services.Tests", "LxUtilities.Services.Tests\LxUtilities.Services.Tests.csproj", "{EEBD04D1-7C22-4D5B-B78E-BD397E0E8FE8}"
 EndProject

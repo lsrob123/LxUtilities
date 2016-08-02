@@ -88,15 +88,15 @@
     <Compile Include="Caching\Redis\Config\CacheHost.cs" />
     <Compile Include="Caching\Redis\Config\CacheHostCollection.cs" />
     <Compile Include="Caching\Redis\Config\ICacheConfig.cs" />
+    <Compile Include="Domain\Messaging\DomainEventService.cs" />
     <Compile Include="Logger\Log4Net\Logger.cs" />
     <Compile Include="Mapping\MappingServiceBase.cs" />
-    <Compile Include="Messages\BusReadyEvent.cs" />
+    <Compile Include="ServiceBus\_Shared\BusReadyEvent.cs" />
     <Compile Include="Persistence\Ef\RepositoryBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\JsonSerializer.cs" />
     <Compile Include="ServiceBus\MassTransit\IBusMessageConsumer.cs" />
     <Compile Include="ServiceBus\MassTransit\SingleBusControl.cs" />
-    <Compile Include="ServiceBus\_Shared\BusEndpointMessageHandlersMaps.cs" />
     <Compile Include="ServiceBus\MassTransit\BusMessageConsumer.cs" />
     <Compile Include="ServiceBus\MassTransit\MassTransitBusExtension.cs" />
   </ItemGroup>
@@ -112,9 +112,7 @@
       <Name>LxUtilities.Definitions</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\Messaging\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

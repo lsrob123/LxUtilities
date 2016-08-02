@@ -1,4 +1,5 @@
 ﻿using LxUtilities.Definitions.Domain;
+using LxUtilities.Definitions.Domain.Entity;
 
 namespace LxUtilities.Definitions.Persistence
 {

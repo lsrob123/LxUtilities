@@ -42,10 +42,14 @@
   <ItemGroup>
     <Compile Include="Caching\ICacheWithHashes.cs" />
     <Compile Include="Caching\IGenericCache.cs" />
-    <Compile Include="Domain\EntityBase.cs" />
-    <Compile Include="Domain\GenericValueObjectBase.cs" />
-    <Compile Include="Domain\IEntity.cs" />
-    <Compile Include="Domain\IValueObject.cs" />
+    <Compile Include="Domain\Entity\EntityBase.cs" />
+    <Compile Include="Domain\Messaging\DomainEventHandlerBase.cs" />
+    <Compile Include="Domain\Messaging\IDomainEventHandler.cs" />
+    <Compile Include="Domain\ValueObject\GenericValueObjectBase.cs" />
+    <Compile Include="Domain\Messaging\IDomainEvent.cs" />
+    <Compile Include="Domain\Messaging\IDomainEventService.cs" />
+    <Compile Include="Domain\Entity\IEntity.cs" />
+    <Compile Include="Domain\ValueObject\IValueObject.cs" />
     <Compile Include="DTOs\ICommand.cs" />
     <Compile Include="DTOs\IDto.cs" />
     <Compile Include="DTOs\IEvent.cs" />

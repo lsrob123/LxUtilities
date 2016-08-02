@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LxUtilities.Definitions.Domain
+namespace LxUtilities.Definitions.Domain.Entity
 {
     public abstract class EntityBase : IEntity
     {

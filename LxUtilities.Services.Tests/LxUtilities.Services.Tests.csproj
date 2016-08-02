@@ -69,6 +69,12 @@
     <Compile Include="Cache\Redis\_ObjectMothers\CachedItemMother.cs" />
     <Compile Include="Cache\Redis\_ObjectMothers\CacheMother.cs" />
     <Compile Include="Cache\Redis\_ObjectMothers\LoggerMother.cs" />
+    <Compile Include="Domain\Messaging\DomainEventServiceTests.cs" />
+    <Compile Include="Domain\_ObjectMothers\ISomePortsService.cs" />
+    <Compile Include="Domain\_ObjectMothers\SomeDomainEventHandler.cs" />
+    <Compile Include="Domain\_ObjectMothers\SomeDomainEvent.cs" />
+    <Compile Include="Domain\_ObjectMothers\SomeEntity.cs" />
+    <Compile Include="Domain\_ObjectMothers\SomePortsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceBus\MassTransit\BusCommandTests.cs" />
     <Compile Include="ServiceBus\MassTransit\BusEventTests.cs" />
@@ -92,6 +98,7 @@
       <Name>LxUtilities.Services</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
