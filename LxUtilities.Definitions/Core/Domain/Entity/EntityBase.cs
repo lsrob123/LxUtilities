@@ -26,5 +26,6 @@ namespace LxUtilities.Definitions.Core.Domain.Entity
         {
             MediatorLocator.Default.Publish(domainEvent);
         }
+
     }
 }

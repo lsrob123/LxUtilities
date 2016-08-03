@@ -1,4 +1,5 @@
 ﻿using System;
+using LxUtilities.Definitions.Core.Domain.Messaging;
 
 namespace LxUtilities.Definitions.Core.Domain.Entity
 {
@@ -6,5 +7,7 @@ namespace LxUtilities.Definitions.Core.Domain.Entity
     {
         Guid Key { get; }
         void SetKey(Guid key);
+
+        void RaiseEvent(IDomainEvent domainEvent);
     }
 }
