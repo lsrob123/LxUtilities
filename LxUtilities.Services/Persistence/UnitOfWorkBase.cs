@@ -1,26 +1,25 @@
 ﻿using System;
-using LxUtilities.Definitions.Persistence;
-using LxUtilities.Definitions.Caching;
 using System.Data.Entity;
+using LxUtilities.Definitions.Caching;
+using LxUtilities.Definitions.Persistence;
 
-namespace LxUtilities.Services.Persistence.Ef
+namespace LxUtilities.Services.Persistence
 {
     public abstract class UnitOfWorkBase<TDbContext> : IUnitOfWork
-        where TDbContext: DbContext, new()
+        where TDbContext:DbContext
     {
-        protected TDbContext DbContext;
+        protected TDbContext Context;
         protected readonly ICache Cache;
 
-        public UnitOfWorkBase(string connectionString, ICache cache)
+        protected UnitOfWorkBase(Func<TDbContext> dbContextFactory, ICache cache)
         {
-            DbContext = new TDbContext(connectionString);
-            ConnectionString = connectionString;
+            Context = dbContextFactory();
             Cache = cache;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Context.Dispose();
         }
     }
 }
