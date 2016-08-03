@@ -13,18 +13,18 @@ namespace LxUtilities.Services.Tests.ServiceBus.MassTransit
         [SetUp]
         public void SetUp()
         {
-            _singleBusControl = SingleBusControlMother.Default();
+            _serviceBusControl = SingleBusControlMother.Default();
 
-            _singleBusControl.Start();
+            _serviceBusControl.Start();
         }
 
         [TearDown]
         public void TearDown()
         {
-            _singleBusControl.Stop();
+            _serviceBusControl.Stop();
         }
 
-        private ISingleBusControl<MassTransitBus> _singleBusControl;
+        private IServiceBusControl<MassTransitBus> _serviceBusControl;
 
         [Test]
         [TestCase(BusInteraction.Send)]
@@ -39,7 +39,7 @@ namespace LxUtilities.Services.Tests.ServiceBus.MassTransit
             switch (busInteraction)
             {
                 case BusInteraction.Send:
-                    await _singleBusControl.SendAsync(busCommand, (message, context) =>
+                    await _serviceBusControl.SendAsync(busCommand, (message, context) =>
                     {
                         Assert.IsNotNull(context);
                         Assert.IsNotNull(message);
@@ -49,7 +49,7 @@ namespace LxUtilities.Services.Tests.ServiceBus.MassTransit
                     break;
 
                 case BusInteraction.Publish:
-                    await _singleBusControl.PublishAsync(busCommand, (message, context) =>
+                    await _serviceBusControl.PublishAsync(busCommand, (message, context) =>
                     {
                         Assert.IsNotNull(context);
                         Assert.IsNotNull(message);

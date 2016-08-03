@@ -1,15 +1,11 @@
 ﻿using System;
-using LxUtilities.Definitions.Core.Domain.Messaging;
 
 namespace LxUtilities.Services.Tests.Domain._ObjectMothers
 {
     public class SomePortsService : ISomePortsService
     {
-        private readonly IDomainEventService _domainEventService;
-
-        public SomePortsService(IDomainEventService domainEventService)
+        public SomePortsService()
         {
-            _domainEventService = domainEventService;
             Data = new SomeEntity(Guid.NewGuid(), Guid.NewGuid());
         }
 
@@ -18,7 +14,7 @@ namespace LxUtilities.Services.Tests.Domain._ObjectMothers
 
         public Guid MakeSomeChangeAndGetNewValue()
         {
-            Data.MakeSomeChange(_domainEventService);
+            Data.MakeSomeChange();
             return Data.SomeValue;
         }
 

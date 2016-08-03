@@ -2,7 +2,7 @@ using System;
 
 namespace LxUtilities.Definitions.ServiceBus
 {
-    public interface ISingleBusControl<out TBus> : IBus
+    public interface IServiceBusControl<out TBus> : IBus
     {
         TBus BusInstance { get; }
         IBusHostConfig Config { get; }

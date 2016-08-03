@@ -13,18 +13,18 @@ namespace LxUtilities.Services.Tests.ServiceBus.MassTransit
         [SetUp]
         public void SetUp()
         {
-            _singleBusControl = SingleBusControlMother.Default();
+            _serviceBusControl = SingleBusControlMother.Default();
 
-            _singleBusControl.Start();
+            _serviceBusControl.Start();
         }
 
         [TearDown]
         public void TearDown()
         {
-            _singleBusControl.Stop();
+            _serviceBusControl.Stop();
         }
 
-        private ISingleBusControl<MassTransitBus> _singleBusControl;
+        private IServiceBusControl<MassTransitBus> _serviceBusControl;
 
         [Test]
         public async void Given_BusEvent_When_PublishIsCalled_Then_EventConsumerConsumesTheEvent()
@@ -33,7 +33,7 @@ namespace LxUtilities.Services.Tests.ServiceBus.MassTransit
             EventState.Consumed = Guid.Empty;
             var busEvent = new SomeBusEvent {SomeData = EventState.Sent};
 
-            await _singleBusControl.PublishAsync(busEvent, (message, context) =>
+            await _serviceBusControl.PublishAsync(busEvent, (message, context) =>
             {
                 Assert.IsNotNull(context);
                 Assert.IsNotNull(message);

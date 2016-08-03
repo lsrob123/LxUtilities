@@ -14,18 +14,18 @@ namespace LxUtilities.Services.Tests.ServiceBus.MassTransit
         [SetUp]
         public void SetUp()
         {
-            _singleBusControl = SingleBusControlMother.Default();
+            _serviceBusControl = SingleBusControlMother.Default();
 
-            _singleBusControl.Start();
+            _serviceBusControl.Start();
         }
 
         [TearDown]
         public void TearDown()
         {
-            _singleBusControl.Stop();
+            _serviceBusControl.Stop();
         }
 
-        private ISingleBusControl<MassTransitBus> _singleBusControl;
+        private IServiceBusControl<MassTransitBus> _serviceBusControl;
 
         private static async Task RunTest(IRequestClient<SomeBusRequest, SomeBusResponse> client, int testIndex)
         {
@@ -50,12 +50,12 @@ namespace LxUtilities.Services.Tests.ServiceBus.MassTransit
         [TestCase(2)]
         public async void Given_BusRequest_When_RequestIsCalled_Then_ExpectedBusResponseIsReturned(int testIndex)
         {
-            var responseEndpointUri = _singleBusControl.GetTypedResponseEndpoint(typeof (SomeBusResponse));
+            var responseEndpointUri = _serviceBusControl.GetTypedResponseEndpoint(typeof (SomeBusResponse));
 
             Console.WriteLine($"Response endpoint is {responseEndpointUri.AbsoluteUri}");
 
-            var client = _singleBusControl.BusInstance.CreateRequestClient<SomeBusRequest, SomeBusResponse>(
-                responseEndpointUri, _singleBusControl.Config.DefaultRequestTimeout);
+            var client = _serviceBusControl.BusInstance.CreateRequestClient<SomeBusRequest, SomeBusResponse>(
+                responseEndpointUri, _serviceBusControl.Config.DefaultRequestTimeout);
 
             await RunTest(client, testIndex);
         }

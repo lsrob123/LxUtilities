@@ -44,10 +44,11 @@
     <Compile Include="Caching\IGenericCache.cs" />
     <Compile Include="Core\Domain\Entity\EntityBase.cs" />
     <Compile Include="Core\Domain\Messaging\DomainEventHandlerBase.cs" />
-    <Compile Include="Core\Domain\Messaging\IDomainEventHandler.cs" />
-    <Compile Include="Core\Domain\Messaging\IDomainEventPublisher.cs" />
-    <Compile Include="Core\Domain\Messaging\IDomainEventService.cs" />
-    <Compile Include="Core\Domain\Messaging\IDomainEventSubscriber.cs" />
+    <Compile Include="Core\Messaging\IMediator.cs" />
+    <Compile Include="Core\Messaging\IMessageHandler.cs" />
+    <Compile Include="Core\Messaging\Mediator.cs" />
+    <Compile Include="Core\Messaging\MediatorLocator.cs" />
+    <Compile Include="Core\Messaging\MediatorMessageHandlerBase.cs" />
     <Compile Include="Core\ValueObject\GenericValueObjectBase.cs" />
     <Compile Include="Core\Domain\Messaging\IDomainEvent.cs" />
     <Compile Include="Core\Domain\Entity\IEntity.cs" />
@@ -71,7 +72,7 @@
     <Compile Include="ServiceBus\IBusMessageHandler.cs" />
     <Compile Include="ServiceBus\IBusRequestHandler.cs" />
     <Compile Include="ServiceBus\IBusRequestResponder.cs" />
-    <Compile Include="ServiceBus\ISingleBusControl.cs" />
+    <Compile Include="ServiceBus\IServiceBusControl.cs" />
     <Compile Include="ServiceBus\Messges\BusRequestBase.cs" />
     <Compile Include="ServiceBus\Messges\IBusCommand.cs" />
     <Compile Include="ServiceBus\Messges\IBusEvent.cs" />

@@ -10,7 +10,7 @@ using MassTransit.Util;
 
 namespace LxUtilities.Services.ServiceBus.MassTransit
 {
-    public class SingleBusControl : ISingleBusControl<MassTransitBus>
+    public class ServiceBusControl : IServiceBusControl<MassTransitBus>
     {
         protected const string InstanceNullMessage = "SingleBusControl.Instance is null";
 
@@ -20,7 +20,7 @@ namespace LxUtilities.Services.ServiceBus.MassTransit
         protected readonly ICollection<string> EndpointNames;
         protected readonly Action<string, IRabbitMqReceiveEndpointConfigurator> RegisterConsumerAction;
 
-        public SingleBusControl(IBusHostConfig config, ICollection<string> endpointNames,
+        public ServiceBusControl(IBusHostConfig config, ICollection<string> endpointNames,
             Action<string, IRabbitMqReceiveEndpointConfigurator> registerConsumerAction)
         {
             Config = config;

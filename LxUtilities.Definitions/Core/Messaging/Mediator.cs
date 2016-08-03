@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using LxUtilities.Definitions.Core.Domain.Messaging;
 
-namespace LxUtilities.Services.Core.Domain.Messaging
+namespace LxUtilities.Definitions.Core.Messaging
 {
-    public class DomainEventService : IDomainEventService
+    public class Mediator : IMediator
     {
-        protected static readonly Dictionary<Type, List<IDomainEventHandler>> Handlers =
-            new Dictionary<Type, List<IDomainEventHandler>>();
+        protected static readonly Dictionary<Type, List<IMessageHandler>> Handlers =
+            new Dictionary<Type, List<IMessageHandler>>();
 
         protected static readonly ReaderWriterLockSlim Lock =
             new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
 
-        public IDomainEventPublisher Publish(IDomainEvent domainEvent)
+        public virtual IMediator Publish(object message)
         {
-            var eventType = domainEvent.GetType();
-            List<IDomainEventHandler> handlers;
+            var eventType = message.GetType();
+            List<IMessageHandler> handlers;
             Lock.EnterReadLock();
             try
             {
@@ -30,33 +29,23 @@ namespace LxUtilities.Services.Core.Domain.Messaging
             }
 
             if (handlers != null)
-                Parallel.ForEach(handlers, handler => handler.Handle(domainEvent));
+                Parallel.ForEach(handlers, handler => handler.Handle(message));
 
             return this;
         }
 
-        public IDomainEventSubscriber Subscribe<TEvent>(IDomainEventHandler handler)
-            where TEvent : IDomainEvent
+        public virtual IMediator Subscribe(Type eventType, IMessageHandler handler)
         {
-            var eventType = typeof (TEvent);
-            return Subscribe(eventType, handler);
-        }
-
-        public IDomainEventSubscriber Subscribe(Type eventType, IDomainEventHandler handler)
-        {
-            if (!typeof (IDomainEvent).IsAssignableFrom(eventType))
-                throw new ArgumentOutOfRangeException(nameof(eventType));
-
             Lock.EnterUpgradeableReadLock();
             try
             {
-                List<IDomainEventHandler> handlers;
+                List<IMessageHandler> handlers;
                 if (!Handlers.TryGetValue(eventType, out handlers))
                 {
                     Lock.EnterWriteLock();
                     try
                     {
-                        Handlers.Add(eventType, new List<IDomainEventHandler> {handler});
+                        Handlers.Add(eventType, new List<IMessageHandler> {handler});
                     }
                     finally
                     {

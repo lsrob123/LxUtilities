@@ -1,23 +1,25 @@
-﻿namespace LxUtilities.Definitions.Core.Domain.Messaging
+﻿using System;
+using LxUtilities.Definitions.Core.Messaging;
+
+namespace LxUtilities.Definitions.Core.Domain.Messaging
 {
-    public abstract class DomainEventHandlerBase<TEvent> : IDomainEventHandler
+    public abstract class DomainEventHandlerBase<TEvent> : MediatorMessageHandlerBase<TEvent>
         where TEvent : class, IDomainEvent
     {
-        public void Handle(IDomainEvent e)
+        protected DomainEventHandlerBase(IMediator mediator = null) : base(mediator)
         {
-            var domainEvent = e as TEvent;
+        }
+
+        public override void Handle(object message)
+        {
+            var domainEvent = message as TEvent;
             if (domainEvent == null)
-                return;
+            {
+                throw new ArgumentOutOfRangeException(nameof(message),
+                    $"{message.GetType().FullName} doesn't implement {nameof(IDomainEvent)}");
+            }
 
-            HandleAction(domainEvent);
+            base.Handle(domainEvent);
         }
-
-        public DomainEventHandlerBase<TEvent> SubscribeWith(IDomainEventSubscriber domainEventSubscriber)
-        {
-            domainEventSubscriber.Subscribe<TEvent>(this);
-            return this;
-        }
-
-        protected abstract void HandleAction(TEvent domainEvent);
     }
 }

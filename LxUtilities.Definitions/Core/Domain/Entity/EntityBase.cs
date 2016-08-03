@@ -1,4 +1,6 @@
 ﻿using System;
+using LxUtilities.Definitions.Core.Domain.Messaging;
+using LxUtilities.Definitions.Core.Messaging;
 
 namespace LxUtilities.Definitions.Core.Domain.Entity
 {
@@ -15,9 +17,14 @@ namespace LxUtilities.Definitions.Core.Domain.Entity
 
         public Guid Key { get; protected set; }
 
-        public void SetKey(Guid key)
+        public virtual void SetKey(Guid key)
         {
             Key = key;
+        }
+
+        public virtual void RaiseEvent(IDomainEvent domainEvent)
+        {
+            MediatorLocator.Default.Publish(domainEvent);
         }
     }
 }

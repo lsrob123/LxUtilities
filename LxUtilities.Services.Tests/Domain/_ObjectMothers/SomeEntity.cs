@@ -1,6 +1,5 @@
 ﻿using System;
 using LxUtilities.Definitions.Core.Domain.Entity;
-using LxUtilities.Definitions.Core.Domain.Messaging;
 
 namespace LxUtilities.Services.Tests.Domain._ObjectMothers
 {
@@ -13,10 +12,10 @@ namespace LxUtilities.Services.Tests.Domain._ObjectMothers
 
         public Guid SomeValue { get; private set; }
 
-        public void MakeSomeChange(IDomainEventPublisher domainEventService)
+        public void MakeSomeChange()
         {
             SomeValue = Guid.NewGuid();
-            domainEventService.Publish(new SomeDomainEvent(this));
+            RaiseEvent(new SomeDomainEvent(this));
         }
     }
 }
