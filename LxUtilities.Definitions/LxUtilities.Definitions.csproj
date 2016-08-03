@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caching\ICacheWithHashes.cs" />
-    <Compile Include="Caching\IGenericCache.cs" />
+    <Compile Include="Caching\ICache.cs" />
     <Compile Include="Core\Domain\Entity\EntityBase.cs" />
     <Compile Include="Core\Domain\Messaging\DomainEventHandlerBase.cs" />
     <Compile Include="Core\Messaging\IMediator.cs" />

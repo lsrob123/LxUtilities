@@ -2,7 +2,7 @@ using System;
 
 namespace LxUtilities.Definitions.Caching
 {
-    public interface IGenericCache
+    public interface ICache
     {
         bool Exists(string cacheKey);
         bool RemoveCachedItem(string cacheKey);
