@@ -61,9 +61,10 @@
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Mapping\IMapCreator.cs" />
     <Compile Include="Mapping\IMappingService.cs" />
+    <Compile Include="Persistence\GenericRelationalModel.cs" />
     <Compile Include="Persistence\IRelationalModel.cs" />
     <Compile Include="Persistence\IRepository.cs" />
-    <Compile Include="Persistence\RelationalModelBase.cs" />
+    <Compile Include="Persistence\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="ServiceBus\BusInteraction.cs" />

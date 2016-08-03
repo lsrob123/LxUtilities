@@ -2,101 +2,91 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using LxUtilities.Definitions.Core.Domain.Entity;
 using LxUtilities.Definitions.Persistence;
 
 namespace LxUtilities.Services.Persistence.Ef
 {
-    public abstract class RepositoryBase<TDbContext> : IRepository where TDbContext : DbContext
+    public abstract class RelationalRepositoryBase<TDbContext> : IRepository where TDbContext : DbContext
     {
-        protected readonly Func<TDbContext> DbContextFactory;
+        protected readonly DbContext DbContext;
 
-        protected RepositoryBase(Func<TDbContext> dbContextFactory)
+        protected RelationalRepositoryBase(TDbContext dbContext)
         {
-            DbContextFactory = dbContextFactory;
+            DbContext = dbContext;
         }
 
-        public ICollection<TModel> List<TModel>(Func<IEnumerable<TModel>, ICollection<TModel>> queryFunc)
-            where TModel : class, IRelationalModel, new()
+        public ICollection<TEntity> List<TEntity>(Func<IEnumerable<TEntity>, ICollection<TEntity>> queryFunc)
+            where TEntity : class, IEntity, new()
         {
-            using (var context = DbContextFactory())
+            var query = DbContext.Set<GenericRelationalModel<TEntity>>().Select(x => x.Entity);
+            var list = queryFunc == null ? query.ToList() : queryFunc(query);
+            return list;
+        }
+
+        public TEntity FirstOrDefault<TEntity>(Func<TEntity, bool> queryExpression)
+            where TEntity : class, IEntity, new()
+        {
+            var dataEntity = DbContext.Set<GenericRelationalModel<TEntity>>()
+                .Select(x => x.Entity).FirstOrDefault(x => queryExpression(x));
+            return dataEntity;
+        }
+
+        public TEntity SingleOrDefault<TEntity>(Func<TEntity, bool> queryExpression)
+            where TEntity : class, IEntity, new()
+        {
+            var dataEntity = DbContext.Set<GenericRelationalModel<TEntity>>()
+                .Select(x => x.Entity).SingleOrDefault(x => queryExpression(x));
+            return dataEntity;
+        }
+
+        public TEntity AddOrUpdate<TEntity>(TEntity dataEntity, Func<TEntity, bool> queryExpression, bool saveChanges = true)
+            where TEntity : class, IEntity, new()
+        {
+            var existing = DbContext.Set<GenericRelationalModel<TEntity>>().FirstOrDefault(x => queryExpression(x.Entity));
+            var persistenceModel = new GenericRelationalModel<TEntity>();
+
+            if (existing == null)
             {
-                var query = context.Set<TModel>();
-                var list = queryFunc == null ? query.ToList() : queryFunc(query);
-                return list;
+                DbContext.Set<GenericRelationalModel<TEntity>>().Attach(persistenceModel);
+                DbContext.Entry(persistenceModel).State = EntityState.Added;
             }
-        }
-
-        public TModel FirstOrDefault<TModel>(Func<TModel, bool> queryExpression)
-            where TModel : class, IRelationalModel, new()
-        {
-            using (var context = DbContextFactory())
+            else
             {
-                var dataEntity = context.Set<TModel>().FirstOrDefault(x => queryExpression(x));
-                return dataEntity;
+                persistenceModel.SetId(existing.Id);
+                DbContext.Entry(existing).State = EntityState.Detached;
+                DbContext.Set<GenericRelationalModel<TEntity>>().Attach(persistenceModel);
+                DbContext.Entry(persistenceModel).State = EntityState.Modified;
             }
+
+            if (saveChanges)
+                DbContext.SaveChanges();
+
+            return dataEntity;
         }
 
-        public TModel SingleOrDefault<TModel>(Func<TModel, bool> queryExpression)
-            where TModel : class, IRelationalModel, new()
-        {
-            using (var context = DbContextFactory())
-            {
-                var dataEntity = context.Set<TModel>().SingleOrDefault(x => queryExpression(x));
-                return dataEntity;
-            }
-        }
-
-        public TModel AddOrUpdate<TModel>(TModel dataEntity, Func<TModel, bool> queryExpression, bool saveChanges = true)
-            where TModel : class, IRelationalModel, new()
-        {
-            using (var context = DbContextFactory())
-            {
-                var existingDataEntity = context.Set<TModel>().SingleOrDefault(x => queryExpression(x));
-
-                if (existingDataEntity == null)
-                {
-                    context.Set<TModel>().Attach(dataEntity);
-                    context.Entry(dataEntity).State = EntityState.Added;
-                }
-                else
-                {
-                    dataEntity.SetId(existingDataEntity.Id);
-                    context.Entry(existingDataEntity).State = EntityState.Detached;
-                    context.Set<TModel>().Attach(dataEntity);
-                    context.Entry(dataEntity).State = EntityState.Modified;
-                }
-
-                if (saveChanges)
-                    context.SaveChanges();
-
-                return dataEntity;
-            }
-        }
-
-        public TModel AddOrUpdateByKey<TModel>(TModel dataEntity, bool saveChanges = true)
-            where TModel : class, IRelationalModel, new()
+        public TEntity AddOrUpdateByKey<TEntity>(TEntity dataEntity, bool saveChanges = true)
+            where TEntity : class, IEntity, new()
         {
             return AddOrUpdate(dataEntity, existing => existing.Key == dataEntity.Key, saveChanges);
         }
 
-        public void Delete<TModel>(Func<TModel, bool> queryExpression, bool saveChanges = true)
-            where TModel : class, IRelationalModel, new()
+        public void Delete<TEntity>(Func<TEntity, bool> queryExpression, bool saveChanges = true)
+            where TEntity : class, IEntity, new()
         {
-            using (var context = DbContextFactory())
-            {
-                var existingDataEntity = context.Set<TModel>().SingleOrDefault(x => queryExpression(x));
-                if (existingDataEntity != null)
-                    context.Entry(existingDataEntity).State = EntityState.Deleted;
+            var existing =
+                DbContext.Set<GenericRelationalModel<TEntity>>().SingleOrDefault(x => queryExpression(x.Entity));
+            if (existing != null)
+                DbContext.Entry(existing).State = EntityState.Deleted;
 
-                if (saveChanges)
-                    context.SaveChanges();
-            }
+            if (saveChanges)
+                DbContext.SaveChanges();
         }
 
-        public void DeleteByKey<TModel>(Guid key, bool saveChanges = true)
-            where TModel : class, IRelationalModel, new()
+        public void DeleteByKey<TEntity>(Guid key, bool saveChanges = true)
+            where TEntity : class, IEntity, new()
         {
-            Delete<TModel>(existing => existing.Key == key, saveChanges);
+            Delete<TEntity>(existing => existing.Key == key, saveChanges);
         }
     }
 }

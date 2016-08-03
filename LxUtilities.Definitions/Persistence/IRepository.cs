@@ -1,29 +1,30 @@
 using System;
 using System.Collections.Generic;
+using LxUtilities.Definitions.Core.Domain.Entity;
 
 namespace LxUtilities.Definitions.Persistence
 {
     public interface IRepository
     {
-        ICollection<TModel> List<TModel>(Func<IEnumerable<TModel>, ICollection<TModel>> queryFunc)
-            where TModel : class, IRelationalModel, new();
+        ICollection<TEntity> List<TEntity>(Func<IEnumerable<TEntity>, ICollection<TEntity>> queryFunc)
+            where TEntity : class, IEntity, new();
 
-        TModel FirstOrDefault<TModel>(Func<TModel, bool> queryExpression)
-            where TModel : class, IRelationalModel, new();
+        TEntity FirstOrDefault<TEntity>(Func<TEntity, bool> queryExpression)
+            where TEntity : class, IEntity, new();
 
-        TModel SingleOrDefault<TModel>(Func<TModel, bool> queryExpression)
-            where TModel : class, IRelationalModel, new();
+        TEntity SingleOrDefault<TEntity>(Func<TEntity, bool> queryExpression)
+            where TEntity : class, IEntity, new();
 
-        TModel AddOrUpdate<TModel>(TModel dataEntity, Func<TModel, bool> queryExpression, bool saveChanges = true)
-            where TModel : class, IRelationalModel, new();
+        TEntity AddOrUpdate<TEntity>(TEntity dataEntity, Func<TEntity, bool> queryExpression, bool saveChanges = true)
+            where TEntity : class, IEntity, new();
 
-        TModel AddOrUpdateByKey<TModel>(TModel dataEntity, bool saveChanges = true)
-            where TModel : class, IRelationalModel, new();
+        TEntity AddOrUpdateByKey<TEntity>(TEntity dataEntity, bool saveChanges = true)
+            where TEntity : class, IEntity, new();
 
-        void Delete<TModel>(Func<TModel, bool> queryExpression, bool saveChanges = true)
-            where TModel : class, IRelationalModel, new();
+        void Delete<TEntity>(Func<TEntity, bool> queryExpression, bool saveChanges = true)
+            where TEntity : class, IEntity, new();
 
-        void DeleteByKey<TModel>(Guid key, bool saveChanges = true)
-            where TModel : class, IRelationalModel, new();
+        void DeleteByKey<TEntity>(Guid key, bool saveChanges = true)
+            where TEntity : class, IEntity, new();
     }
 }
