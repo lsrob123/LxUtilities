@@ -90,9 +90,6 @@
     <Compile Include="Caching\Redis\Config\ICacheConfig.cs" />
     <Compile Include="Logger\Log4Net\Logger.cs" />
     <Compile Include="Mapping\MappingServiceBase.cs" />
-    <Compile Include="Persistence\Ef\DbContextBase.cs" />
-    <Compile Include="Persistence\UnitOfWorkBase.cs" />
-    <Compile Include="Persistence\UnitOfWorkFactory.cs" />
     <Compile Include="ServiceBus\_Shared\BusReadyEvent.cs" />
     <Compile Include="Persistence\Ef\RepositoryBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
