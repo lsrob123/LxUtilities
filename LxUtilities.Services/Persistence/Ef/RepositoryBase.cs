@@ -40,7 +40,7 @@ namespace LxUtilities.Services.Persistence.Ef
             return dataEntity;
         }
 
-        public TEntity AddOrUpdate<TEntity>(TEntity dataEntity, Func<TEntity, bool> queryExpression, bool saveChanges = true)
+        public TEntity AddOrUpdate<TEntity>(TEntity entity, Func<TEntity, bool> queryExpression, bool saveChanges = true)
             where TEntity : class, IEntity, new()
         {
             var existing = DbContext.Set<GenericRelationalModel<TEntity>>().FirstOrDefault(x => queryExpression(x.Entity));
@@ -62,13 +62,13 @@ namespace LxUtilities.Services.Persistence.Ef
             if (saveChanges)
                 DbContext.SaveChanges();
 
-            return dataEntity;
+            return entity;
         }
 
-        public TEntity AddOrUpdateByKey<TEntity>(TEntity dataEntity, bool saveChanges = true)
+        public TEntity AddOrUpdateByKey<TEntity>(TEntity entity, bool saveChanges = true)
             where TEntity : class, IEntity, new()
         {
-            return AddOrUpdate(dataEntity, existing => existing.Key == dataEntity.Key, saveChanges);
+            return AddOrUpdate(entity, existing => existing.Key == entity.Key, saveChanges);
         }
 
         public void Delete<TEntity>(Func<TEntity, bool> queryExpression, bool saveChanges = true)
