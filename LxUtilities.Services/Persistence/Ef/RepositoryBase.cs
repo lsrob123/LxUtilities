@@ -5,7 +5,7 @@ using System.Linq;
 using LxUtilities.Definitions.Core.Domain.Entity;
 using LxUtilities.Definitions.Persistence;
 
-namespace LxUtilities.Services.Persistence.Ef
+namespace LxUtilities.Services.Persistence.EF
 {
     public abstract class RelationalRepositoryBase<TDbContext> : IRepository where TDbContext : DbContext
     {

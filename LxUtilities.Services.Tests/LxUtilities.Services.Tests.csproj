@@ -69,6 +69,7 @@
     <Compile Include="Cache\Redis\_ObjectMothers\CachedItemMother.cs" />
     <Compile Include="Cache\Redis\_ObjectMothers\CacheMother.cs" />
     <Compile Include="Cache\Redis\_ObjectMothers\LoggerMother.cs" />
+    <Compile Include="Crypto\CryptoTests.cs" />
     <Compile Include="Domain\Messaging\DomainEventServiceTests.cs" />
     <Compile Include="Domain\_ObjectMothers\ISomePortsService.cs" />
     <Compile Include="Domain\_ObjectMothers\SomeDomainEventHandler.cs" />

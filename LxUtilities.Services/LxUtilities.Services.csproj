@@ -75,6 +75,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -88,10 +89,14 @@
     <Compile Include="Caching\Redis\Config\CacheHost.cs" />
     <Compile Include="Caching\Redis\Config\CacheHostCollection.cs" />
     <Compile Include="Caching\Redis\Config\ICacheConfig.cs" />
+    <Compile Include="Crypto\CryptoService.cs" />
+    <Compile Include="Crypto\DefaultConfigCrypto.cs" />
+    <Compile Include="Crypto\DefaultCryptoFactory.cs" />
     <Compile Include="Logger\Log4Net\Logger.cs" />
     <Compile Include="Mapping\MappingServiceBase.cs" />
+    <Compile Include="Persistence\EF\GenericEfModelMap.cs" />
     <Compile Include="ServiceBus\_Shared\BusReadyEvent.cs" />
-    <Compile Include="Persistence\Ef\RepositoryBase.cs" />
+    <Compile Include="Persistence\EF\RepositoryBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\JsonSerializer.cs" />
     <Compile Include="ServiceBus\MassTransit\IBusMessageConsumer.cs" />
@@ -103,7 +108,9 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LxUtilities.Definitions\LxUtilities.Definitions.csproj">

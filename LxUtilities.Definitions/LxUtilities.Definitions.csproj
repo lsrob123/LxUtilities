@@ -59,6 +59,8 @@
     <Compile Include="Core\DTOs\IEvent.cs" />
     <Compile Include="Core\DTOs\IRequest.cs" />
     <Compile Include="Core\DTOs\IResponse.cs" />
+    <Compile Include="Crypto\IConfigCrypto.cs" />
+    <Compile Include="Crypto\ICryptoService.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Mapping\IMapCreator.cs" />
     <Compile Include="Mapping\IMappingService.cs" />
