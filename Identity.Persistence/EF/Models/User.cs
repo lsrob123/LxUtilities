@@ -2,7 +2,7 @@
 
 namespace Identity.Persistence.EF.Models
 {
-    public class User : GenericRelationalModel<Domain.User>
+    public class IdentityUser : GenericRelationalModel<Domain.User>
     {
     }
 }

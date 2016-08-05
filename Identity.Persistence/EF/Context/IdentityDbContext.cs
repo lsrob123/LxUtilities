@@ -2,7 +2,7 @@
 using Identity.Domain;
 using LxUtilities.Services.Persistence.EF;
 
-namespace Identity.Persistence.EF
+namespace Identity.Persistence.EF.Context
 {
     public class IdentityDbContext : DbContext
     {
@@ -18,7 +18,7 @@ namespace Identity.Persistence.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new GenericEfModelMap<User, Models.User>());
+            modelBuilder.Configurations.Add(new GenericEfModelMap<User, Models.IdentityUser>());
 
             base.OnModelCreating(modelBuilder);
         }

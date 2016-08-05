@@ -50,7 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EF\IdentityDbContext.cs" />
+    <Compile Include="EF\Context\IdentityDbContext.cs" />
+    <Compile Include="Migrations\201608050453576_Created.cs" />
+    <Compile Include="Migrations\201608050453576_Created.Designer.cs">
+      <DependentUpon>201608050453576_Created.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EF\Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +76,11 @@
       <Project>{dc54a4ec-dc64-45cc-8ba6-cfdfcee3ca4d}</Project>
       <Name>LxUtilities.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201608050453576_Created.resx">
+      <DependentUpon>201608050453576_Created.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

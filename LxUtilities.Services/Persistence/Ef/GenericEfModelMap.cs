@@ -18,7 +18,7 @@ namespace LxUtilities.Services.Persistence.EF
         {
             if (string.IsNullOrWhiteSpace(tableName))
                 tableName = PluralizationService.CreateService(CultureInfo.GetCultureInfo("en-us"))
-                    .Pluralize(typeof (TEntity).Name);
+                    .Pluralize(typeof (TRelationalModel).Name);
 
             ToTable(tableName);
 
