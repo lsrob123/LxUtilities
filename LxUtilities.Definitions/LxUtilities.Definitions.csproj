@@ -62,7 +62,7 @@
     <Compile Include="Crypto\IConfigCrypto.cs" />
     <Compile Include="Crypto\ICryptoService.cs" />
     <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="Mapping\IMapCreator.cs" />
+    <Compile Include="Mapping\IMapRegister.cs" />
     <Compile Include="Mapping\IMappingService.cs" />
     <Compile Include="Persistence\GenericRelationalModel.cs" />
     <Compile Include="Persistence\IRelationalModel.cs" />
