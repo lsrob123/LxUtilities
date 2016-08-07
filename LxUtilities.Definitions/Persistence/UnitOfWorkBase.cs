@@ -7,7 +7,7 @@ namespace LxUtilities.Definitions.Persistence
     /// </summary>
     public abstract class UnitOfWorkBase
     {
-        private volatile bool _disposed;
+        protected volatile bool Disposed;
 
         /// <summary>
         /// Execute disposal before finalizer
@@ -24,14 +24,14 @@ namespace LxUtilities.Definitions.Persistence
         /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if (!Disposed)
             {
                 if (disposing)
                 {
                     DisposingAction();
                 }
             }
-            _disposed = true;
+            Disposed = true;
         }
 
         /// <summary>

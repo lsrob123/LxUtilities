@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.5.0.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -51,16 +54,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EF\Context\IdentityDbContext.cs" />
-    <Compile Include="Migrations\201608050453576_Created.cs" />
-    <Compile Include="Migrations\201608050453576_Created.Designer.cs">
-      <DependentUpon>201608050453576_Created.cs</DependentUpon>
+    <Compile Include="Migrations\201608071427053_Created.cs" />
+    <Compile Include="Migrations\201608071427053_Created.Designer.cs">
+      <DependentUpon>201608071427053_Created.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="EF\Models\User.cs" />
+    <Compile Include="EF\Models\IdentityUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -78,8 +83,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608050453576_Created.resx">
-      <DependentUpon>201608050453576_Created.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608071427053_Created.resx">
+      <DependentUpon>201608071427053_Created.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

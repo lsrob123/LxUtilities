@@ -2,14 +2,14 @@
 
 namespace LxUtilities.Definitions.Persistence
 {
-    public class GenericRelationalModel<TEntity> : IRelationalModel<TEntity>
+    public abstract class GenericRelationalModel<TEntity> : IRelationalModel<TEntity>
         where TEntity : class, IEntity
     {
-        public GenericRelationalModel()
+        protected GenericRelationalModel()
         {
         }
 
-        public GenericRelationalModel(TEntity entity)
+        protected GenericRelationalModel(TEntity entity)
         {
             SetEntity(entity);
         }

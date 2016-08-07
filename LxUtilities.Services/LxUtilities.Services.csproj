@@ -93,11 +93,11 @@
     <Compile Include="Crypto\DefaultConfigCrypto.cs" />
     <Compile Include="Crypto\DefaultCryptoFactory.cs" />
     <Compile Include="Logger\Log4Net\Logger.cs" />
-    <Compile Include="Mapping\MappingService.cs" />
-    <Compile Include="Mapping\MapRegisterBase.cs" />
-    <Compile Include="Mapping\MapSetting.cs" />
-    <Compile Include="Persistence\EF\EfModelMapRegister.cs" />
+    <Compile Include="Mapping\AutoMapper\MappingService.cs" />
+    <Compile Include="Mapping\AutoMapper\MapSetting.cs" />
     <Compile Include="Persistence\EF\GenericEfTypeConfig.cs" />
+    <Compile Include="Persistence\RelationalModelToEntityConverter.cs" />
+    <Compile Include="Persistence\EntityToRelationalModelConverter.cs" />
     <Compile Include="ServiceBus\_Shared\BusReadyEvent.cs" />
     <Compile Include="Persistence\EF\RepositoryBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

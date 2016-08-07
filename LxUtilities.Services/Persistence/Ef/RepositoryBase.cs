@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using LxUtilities.Definitions.Core.Domain.Entity;
+using LxUtilities.Definitions.Mapping;
 using LxUtilities.Definitions.Persistence;
 
 namespace LxUtilities.Services.Persistence.EF
@@ -10,72 +11,77 @@ namespace LxUtilities.Services.Persistence.EF
     public abstract class RelationalRepositoryBase<TDbContext> : IRepository where TDbContext : DbContext
     {
         protected readonly DbContext DbContext;
+        protected readonly IMappingService MappingService;
 
-        protected RelationalRepositoryBase(TDbContext dbContext)
+        protected RelationalRepositoryBase(TDbContext dbContext, IMappingService mappingService)
         {
             DbContext = dbContext;
+            MappingService = mappingService;
         }
 
-        public ICollection<TEntity> List<TEntity>(Func<IEnumerable<TEntity>, ICollection<TEntity>> queryFunc)
+        public ICollection<TEntity> List<TEntity>(
+            Func<IEnumerable<IStoredEntityModel<TEntity>>, ICollection<IStoredEntityModel<TEntity>>> queryFunc)
             where TEntity : class, IEntity, new()
         {
-            var query = DbContext.Set<GenericRelationalModel<TEntity>>().Select(x => x.Entity);
-            var list = queryFunc == null ? query.ToList() : queryFunc(query);
+            var dbSet = GetDbSetWithStoredEntityModels<TEntity>();
+
+            var list = queryFunc?.Invoke(dbSet).Select(x => x.Entity).ToList() ?? dbSet.Select(x => x.Entity).ToList();
             return list;
         }
 
-        public TEntity FirstOrDefault<TEntity>(Func<TEntity, bool> queryExpression)
+        public TEntity FirstOrDefault<TEntity>(
+            Func<IStoredEntityModel<TEntity>, bool> queryExpression)
             where TEntity : class, IEntity, new()
         {
-            var dataEntity = DbContext.Set<GenericRelationalModel<TEntity>>()
-                .Select(x => x.Entity).FirstOrDefault(x => queryExpression(x));
-            return dataEntity;
+            var storedEntityModel = GetDbSetWithStoredEntityModels<TEntity>().FirstOrDefault(x => queryExpression(x));
+            return storedEntityModel?.Entity;
         }
 
-        public TEntity SingleOrDefault<TEntity>(Func<TEntity, bool> queryExpression)
+        public TEntity SingleOrDefault<TEntity>(
+            Func<IStoredEntityModel<TEntity>, bool> queryExpression)
             where TEntity : class, IEntity, new()
         {
-            var dataEntity = DbContext.Set<GenericRelationalModel<TEntity>>()
-                .Select(x => x.Entity).SingleOrDefault(x => queryExpression(x));
-            return dataEntity;
+            var storedEntityModel = GetDbSetWithStoredEntityModels<TEntity>().SingleOrDefault(x => queryExpression(x));
+            return storedEntityModel?.Entity;
         }
 
-        public TEntity AddOrUpdate<TEntity>(TEntity entity, Func<TEntity, bool> queryExpression, bool saveChanges = true)
+        public TEntity AddOrUpdate<TEntity>(TEntity entity,
+            Func<IStoredEntityModel<TEntity>, bool> queryExpression, bool saveChanges = true)
             where TEntity : class, IEntity, new()
         {
-            var existing = DbContext.Set<GenericRelationalModel<TEntity>>().FirstOrDefault(x => queryExpression(x.Entity));
-            var persistenceModel = new GenericRelationalModel<TEntity>();
+            var dbSet = GetDbSetWithRelationalModels<TEntity>();
+            var existing = dbSet.FirstOrDefault(x => queryExpression(x));
+            var persistenceModel = MappingService.Map(entity);
 
             if (existing == null)
             {
-                DbContext.Set<GenericRelationalModel<TEntity>>().Attach(persistenceModel);
+                dbSet.Attach(persistenceModel);
                 DbContext.Entry(persistenceModel).State = EntityState.Added;
             }
             else
             {
                 persistenceModel.SetId(existing.Id);
                 DbContext.Entry(existing).State = EntityState.Detached;
-                DbContext.Set<GenericRelationalModel<TEntity>>().Attach(persistenceModel);
+                dbSet.Attach(persistenceModel);
                 DbContext.Entry(persistenceModel).State = EntityState.Modified;
             }
 
             if (saveChanges)
                 DbContext.SaveChanges();
 
-            return entity;
+            return persistenceModel.Entity;
         }
 
         public TEntity AddOrUpdateByKey<TEntity>(TEntity entity, bool saveChanges = true)
             where TEntity : class, IEntity, new()
         {
-            return AddOrUpdate(entity, existing => existing.Key == entity.Key, saveChanges);
+            return AddOrUpdate(entity, existing => existing.Entity.Key == entity.Key, saveChanges);
         }
 
-        public void Delete<TEntity>(Func<TEntity, bool> queryExpression, bool saveChanges = true)
+        public void Delete<TEntity>(Func<IStoredEntityModel<TEntity>, bool> queryExpression, bool saveChanges = true)
             where TEntity : class, IEntity, new()
         {
-            var existing =
-                DbContext.Set<GenericRelationalModel<TEntity>>().SingleOrDefault(x => queryExpression(x.Entity));
+            var existing = GetDbSetWithRelationalModels<TEntity>().SingleOrDefault(x => queryExpression(x));
             if (existing != null)
                 DbContext.Entry(existing).State = EntityState.Deleted;
 
@@ -86,7 +92,39 @@ namespace LxUtilities.Services.Persistence.EF
         public void DeleteByKey<TEntity>(Guid key, bool saveChanges = true)
             where TEntity : class, IEntity, new()
         {
-            Delete<TEntity>(existing => existing.Key == key, saveChanges);
+            Delete<TEntity>(existing => existing.Entity.Key == key, saveChanges);
+        }
+
+        protected virtual DbSet GetDbSet<TEntity>() where TEntity : class, IEntity
+        {
+            var entityType = typeof (TEntity);
+            var relationalModelType = MappingService.GetRelationalModelType(entityType);
+            if (relationalModelType == null)
+                throw new NullReferenceException($"{entityType.FullName} has no matching relational model type");
+
+            return DbContext.Set(relationalModelType);
+        }
+
+        /// <summary>
+        ///     Get DbSet for read and write operations
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <returns></returns>
+        protected virtual DbSet<IRelationalModel<TEntity>> GetDbSetWithRelationalModels<TEntity>()
+            where TEntity : class, IEntity
+        {
+            return GetDbSet<TEntity>().Cast<IRelationalModel<TEntity>>();
+        }
+
+        /// <summary>
+        ///     Get DbSet for read-only operations
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <returns></returns>
+        protected virtual DbSet<IStoredEntityModel<TEntity>> GetDbSetWithStoredEntityModels<TEntity>()
+            where TEntity : class, IEntity
+        {
+            return GetDbSet<TEntity>().Cast<IStoredEntityModel<TEntity>>();
         }
     }
 }

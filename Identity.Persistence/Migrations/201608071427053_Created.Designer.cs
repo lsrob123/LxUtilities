@@ -13,7 +13,7 @@ namespace Identity.Persistence.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201608050453576_Created"; }
+            get { return "201608071427053_Created"; }
         }
         
         string IMigrationMetadata.Source

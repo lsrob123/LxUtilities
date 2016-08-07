@@ -8,9 +8,8 @@ namespace LxUtilities.Definitions.Persistence
         void SetId(long id);
     }
 
-    public interface IRelationalModel<out TEntity> : IRelationalModel
-        where TEntity: class, IEntity
+    public interface IRelationalModel<TEntity> : IRelationalModel, IStoredEntityModel<TEntity>
+        where TEntity : class, IEntity
     {
-        TEntity Entity { get; }
     }
 }

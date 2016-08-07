@@ -1,11 +1,7 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using AutoMapper;
 
-namespace LxUtilities.Services.Mapping
+namespace LxUtilities.Services.Mapping.AutoMapper
 {
 public     class MapSetting
     {
@@ -20,6 +16,17 @@ public     class MapSetting
             Source = source;
             Destination = destination;
             CustomMap = customMap;
-        } 
+        }
+
+        public MapSetting(Type source, Type destination, Action<IMappingExpression> customMap)
+        {
+            Source = source;
+            Destination = destination;
+            CustomMap = expression =>
+            {
+                customMap(expression);
+                return expression;
+            };
+        }
     }
 }

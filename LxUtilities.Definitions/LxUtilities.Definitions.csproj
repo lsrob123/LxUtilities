@@ -62,11 +62,11 @@
     <Compile Include="Crypto\IConfigCrypto.cs" />
     <Compile Include="Crypto\ICryptoService.cs" />
     <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="Mapping\IMapRegister.cs" />
     <Compile Include="Mapping\IMappingService.cs" />
     <Compile Include="Persistence\GenericRelationalModel.cs" />
     <Compile Include="Persistence\IRelationalModel.cs" />
     <Compile Include="Persistence\IRepository.cs" />
+    <Compile Include="Persistence\IStoredEntityModel.cs" />
     <Compile Include="Persistence\IUnitOfWork.cs" />
     <Compile Include="Persistence\IUnitOfWorkFactory.cs" />
     <Compile Include="Persistence\UnitOfWorkBase.cs" />
