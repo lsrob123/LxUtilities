@@ -10,11 +10,11 @@ using LxUtilities.Definitions.Persistence;
 
 namespace LxUtilities.Services.Persistence.EF
 {
-    public class GenericEfModelMap<TEntity, TRelationalModel> : EntityTypeConfiguration<TRelationalModel>
+    public class GenericEfTypeConfig<TEntity, TRelationalModel> : EntityTypeConfiguration<TRelationalModel>
         where TRelationalModel : GenericRelationalModel<TEntity>
         where TEntity : class, IEntity
     {
-        public GenericEfModelMap(string tableName = null)
+        public GenericEfTypeConfig(string tableName = null)
         {
             if (string.IsNullOrWhiteSpace(tableName))
                 tableName = PluralizationService.CreateService(CultureInfo.GetCultureInfo("en-us"))

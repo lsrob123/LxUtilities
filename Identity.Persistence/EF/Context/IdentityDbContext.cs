@@ -18,7 +18,7 @@ namespace Identity.Persistence.EF.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new GenericEfModelMap<User, Models.IdentityUser>());
+            modelBuilder.Configurations.Add(new GenericEfTypeConfig<User, Models.IdentityUser>());
 
             base.OnModelCreating(modelBuilder);
         }
