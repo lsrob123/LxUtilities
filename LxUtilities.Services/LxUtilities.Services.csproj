@@ -93,6 +93,7 @@
     <Compile Include="Crypto\DefaultConfigCrypto.cs" />
     <Compile Include="Crypto\DefaultCryptoFactory.cs" />
     <Compile Include="Logger\Log4Net\Logger.cs" />
+    <Compile Include="Mapping\AutoMapper\MapRegister.cs" />
     <Compile Include="Mapping\MappingService.cs" />
     <Compile Include="Persistence\EF\EfModelMapRegister.cs" />
     <Compile Include="Persistence\EF\GenericEfModelMap.cs" />
