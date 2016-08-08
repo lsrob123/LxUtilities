@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Transactions;
+using LxUtilities.Definitions.Persistence;
 
-namespace LxUtilities.Definitions.Persistence
+namespace LxUtilities.Services.Persistence
 {
     /// <summary>
     /// Provides base class for a generic UnitOfWork factory

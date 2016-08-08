@@ -6,7 +6,7 @@ namespace LxUtilities.Services.Tests.Cache.Redis._ObjectMothers
     {
         public static Caching.Redis.Cache Default()
         {
-            return new Caching.Redis.Cache(LoggerMother.DoNothingLogger(), new JsonSerializer());
+            return new Caching.Redis.Cache(new JsonSerializer());
         }
     }
 }
