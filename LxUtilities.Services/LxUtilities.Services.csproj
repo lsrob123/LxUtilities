@@ -103,6 +103,7 @@
     <Compile Include="Persistence\EF\UnitOfWorkWithEfAndCache.cs" />
     <Compile Include="Persistence\UnitOfWorkBase.cs" />
     <Compile Include="Persistence\UnitOfWorkFactoryBase.cs" />
+    <Compile Include="Serialization\FullJsonContractResolver.cs" />
     <Compile Include="ServiceBus\_Shared\BusReadyEvent.cs" />
     <Compile Include="Persistence\EF\EfDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
