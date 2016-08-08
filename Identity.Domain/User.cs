@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using LxUtilities.Definitions.Core.Domain.Entity;
 
 namespace Identity.Domain
@@ -9,7 +10,7 @@ namespace Identity.Domain
         {
         }
 
-        public User(string username, string hashedPassword, string email, string mobile) : this()
+        public User(Guid userKey, string username, string hashedPassword, string email, string mobile) : base(userKey)
         {
             Username = username;
             HashedPassword = hashedPassword;

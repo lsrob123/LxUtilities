@@ -12,17 +12,18 @@ namespace LxUtilities.Services.Persistence.Ef
         protected readonly TDbContext Context;
         protected readonly IMappingService MappingService;
 
-        public UnitOfWorkWithEfAndCache(Func<TDbContext> contextFactory, ICacheWithTransactions cache,
+        public UnitOfWorkWithEfAndCache(Func<TDbContext> contextFactory, Func<ICacheWithTransactions> cacheFactory,
             IMappingService mappingService)
         {
-            Cache = cache;
-            MappingService = mappingService;
+            Cache = cacheFactory();
             Context = contextFactory();
+            MappingService = mappingService;
         }
 
         protected override void DisposingAction()
         {
             Context.Dispose();
+            Cache.Dispose();
         }
 
         public override void SaveChanges()

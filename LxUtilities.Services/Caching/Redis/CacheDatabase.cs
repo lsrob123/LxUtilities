@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using LxUtilities.Definitions.Caching;
 using LxUtilities.Definitions.Serialization;
 using LxUtilities.Services.Caching.Redis.Config;
@@ -12,7 +13,6 @@ namespace LxUtilities.Services.Caching.Redis
     {
         protected readonly ICacheConfig Config;
         protected readonly ConnectionMultiplexer ConnectionMultiplexer;
-
         protected readonly IDatabase Database;
         protected readonly ISerializer Serializer;
 
@@ -43,9 +43,10 @@ namespace LxUtilities.Services.Caching.Redis
             return Database.KeyExists(cacheKey);
         }
 
-        public bool RemoveCachedItem(string cacheKey)
+        public async Task<bool> RemoveCachedItemAsync(string cacheKey)
         {
-            return Database.KeyDelete(cacheKey);
+            var result = await Database.KeyDeleteAsync(cacheKey);
+            return result;
         }
 
         public T GetCachedItem<T>(string cacheKey)
@@ -56,15 +57,16 @@ namespace LxUtilities.Services.Caching.Redis
                 : Serializer.Deserialize<T>(redisValue);
         }
 
-        public bool SetCachedItem<T>(string cacheKey, T cachedItem, TimeSpan expiration)
+        public async Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem, TimeSpan expiration)
         {
             var cachedString = Serializer.Serialize(cachedItem);
-            return Database.StringSet(cacheKey, cachedString, expiration);
+            var result = await Database.StringSetAsync(cacheKey, cachedString, expiration);
+            return result;
         }
 
-        public void HashSet(string hashKey, IDictionary<string, string> nameValues)
+        public async Task HashSetAsync(string hashKey, IDictionary<string, string> nameValues)
         {
-            Database.HashSet(hashKey, nameValues.Select(x => new HashEntry(x.Key, x.Value)).ToArray());
+            await Database.HashSetAsync(hashKey, nameValues.Select(x => new HashEntry(x.Key, x.Value)).ToArray());
         }
 
         public ICollection<string> HashGet(string hashKey, params string[] names)
@@ -74,17 +76,23 @@ namespace LxUtilities.Services.Caching.Redis
             return results;
         }
 
-        public bool SetCachedItem<T>(string cacheKey, T cachedItem)
+        public async Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem)
         {
             var cachedString = Serializer.Serialize(cachedItem);
-            return Database.StringSet(cacheKey, cachedString);
+            var result = await Database.StringSetAsync(cacheKey, cachedString);
+            return result;
+        }
+
+        public void Dispose()
+        {
+            ConnectionMultiplexer.Dispose();
         }
 
         public void RemoveAllCachedItems(ICollection<string> cacheKeys)
         {
             foreach (var cacheKey in cacheKeys)
             {
-                RemoveCachedItem(cacheKey);
+                RemoveCachedItemAsync(cacheKey).Wait();
             }
         }
 
@@ -117,10 +125,11 @@ namespace LxUtilities.Services.Caching.Redis
             });
         }
 
-        public bool SetCachedItem<T>(string cacheKey, T cachedItem, DateTimeOffset expiresAt) where T : class
+        public async Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem, DateTimeOffset expiresAt)
+            where T : class
         {
             var expiration = expiresAt.Subtract(DateTimeOffset.Now);
-            return SetCachedItem(cacheKey, cachedItem, expiration);
+            return await SetCachedItemAsync(cacheKey, cachedItem, expiration);
         }
 
         public bool SetCachedItems<T>(IList<Tuple<string, T>> cachedItems)

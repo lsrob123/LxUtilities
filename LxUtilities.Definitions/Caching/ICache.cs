@@ -1,13 +1,14 @@
 using System;
+using System.Threading.Tasks;
 
 namespace LxUtilities.Definitions.Caching
 {
-    public interface ICache
+    public interface ICache : IDisposable
     {
         bool Exists(string cacheKey);
-        bool RemoveCachedItem(string cacheKey);
+        Task<bool> RemoveCachedItemAsync(string cacheKey);
         T GetCachedItem<T>(string cacheKey);
-        bool SetCachedItem<T>(string cacheKey, T cachedItem);
-        bool SetCachedItem<T>(string cacheKey, T cachedItem, TimeSpan expiration);
+        Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem);
+        Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem, TimeSpan expiration);
     }
 }

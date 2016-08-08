@@ -12,20 +12,20 @@ namespace LxUtilities.Services.Mapping.AutoMapper
 {
     public class MappingService : IMappingService
     {
-        protected static readonly ConcurrentBag<MapSetting> Maps = new ConcurrentBag<MapSetting>();
+        //protected static readonly ConcurrentBag<MapSetting> Maps = new ConcurrentBag<MapSetting>();
 
         protected static readonly ConcurrentDictionary<Type, Type> EntityToRelationalModelMaps =
             new ConcurrentDictionary<Type, Type>();
 
         public MappingService()
         {
-            Mapper.Initialize(config =>
-            {
-                foreach (var map in Maps)
-                {
-                    RegisterMap(config, map.Source, map.Destination, map.CustomMap);
-                }
-            });
+            //Mapper.Initialize(config =>
+            //{
+            //    foreach (var map in Maps)
+            //    {
+            //        RegisterMap(config, map.Source, map.Destination, map.CustomMap);
+            //    }
+            //});
         }
 
         public TDestination Map<TDestination>(object source)
@@ -46,7 +46,8 @@ namespace LxUtilities.Services.Mapping.AutoMapper
             if (!EntityToRelationalModelMaps.TryGetValue(entityType, out relationalModelType))
                 return null;
 
-            var relationalModel = Map(entity, relationalModelType) as IRelationalModel<TEntity>;
+            var mappedObject = Map(entity, relationalModelType);
+            var relationalModel = mappedObject as IRelationalModel<TEntity>;
             return relationalModel;
         }
 
@@ -58,47 +59,54 @@ namespace LxUtilities.Services.Mapping.AutoMapper
                 : null;
         }
 
-        public static void AddMaps(IEnumerable<MapSetting> maps)
-        {
-            AddMapsInternal(maps);
-        }
+        //public static void AddMaps(IEnumerable<MapSetting> maps)
+        //{
+        //    AddMapsInternal(maps);
+        //}
 
-        protected static void AddMapsInternal(IEnumerable<MapSetting> maps)
-        {
-            foreach (var map in maps.ToList())
-            {
-                Maps.Add(map);
-            }
-        }
+        //protected static void AddMapsInternal(IEnumerable<MapSetting> maps)
+        //{
+        //    //foreach (var map in maps.ToList())
+        //    //{
+        //    //    Maps.Add(map);
+        //    //}
+
+        //    Mapper.Initialize(config =>
+        //    {
+        //        foreach (var map in maps.ToList())
+        //        {
+        //            RegisterMap(config, map.Source, map.Destination, map.CustomMap);
+        //        }
+        //    });
+
+        //}
 
         public static void AddEntityAndRelationalModelMap<TEntity, TRelationalModel>()
             where TEntity : class, IEntity
             where TRelationalModel : IRelationalModel<TEntity>, new()
         {
-            var entityType = typeof (TEntity);
-            var relationalModelType = typeof (TRelationalModel);
+            var entityType = typeof(TEntity);
+            var relationalModelType = typeof(TRelationalModel);
 
-            AddMaps(new MapSetting(entityType, relationalModelType,
-                mappingExpression =>
-                    mappingExpression.ConvertUsing<EntityToRelationalModelConverter<TEntity, TRelationalModel>>()));
+            //AddMaps(new MapSetting(entityType, relationalModelType,
+            //    mappingExpression =>
+            //        mappingExpression.ConvertUsing<EntityToRelationalModelConverter<TEntity, TRelationalModel>>()));
 
-            AddMaps(new MapSetting(relationalModelType, entityType,
-                mappingExpression =>
-                    mappingExpression.ConvertUsing<RelationalModelToEntityConverter<TRelationalModel, TEntity>>()));
+            //AddMaps(new MapSetting(relationalModelType, entityType,
+            //    mappingExpression =>
+            //        mappingExpression.ConvertUsing<RelationalModelToEntityConverter<TRelationalModel, TEntity>>()));
 
             EntityToRelationalModelMaps.TryAdd(entityType, relationalModelType);
         }
 
-        public static void AddMaps(params MapSetting[] maps)
-        {
-            AddMapsInternal(maps);
-        }
+        //public static void AddMaps(params MapSetting[] maps)
+        //{
+        //    AddMapsInternal(maps);
+        //}
 
         protected static IMappingExpression RegisterMap(IMapperConfigurationExpression config,
             Type source, Type destination, Func<IMappingExpression, IMappingExpression> customMapping = null)
         {
-            config.CreateMap<string, string>();
-
             var expression = config.CreateMap(source, destination);
 
             if (customMapping != null)

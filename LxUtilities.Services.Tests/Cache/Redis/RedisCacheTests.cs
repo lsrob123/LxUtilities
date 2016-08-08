@@ -10,7 +10,7 @@ namespace LxUtilities.Services.Tests.Cache.Redis
     public class RedisCacheTests
     {
         [Test]
-        public void Given_HashKeyAndHashField_When_ItsSetInCacheHash_Then_SameValueCanBeRetrievedFromCacheHash()
+        public async void Given_HashKeyAndHashField_When_ItsSetInCacheHash_Then_SameValueCanBeRetrievedFromCacheHash()
         {
             var hashKey = Guid.NewGuid().ToString();
             var fieldName = Guid.NewGuid().ToString();
@@ -18,7 +18,7 @@ namespace LxUtilities.Services.Tests.Cache.Redis
 
             using (var cache = CacheMother.Default())
             {
-                cache.HashSet(hashKey,
+                await cache.HashSetAsync(hashKey,
                     new Dictionary<string, string>
                     {
                         {fieldName, fieldValue}
@@ -35,13 +35,13 @@ namespace LxUtilities.Services.Tests.Cache.Redis
         }
 
         [Test]
-        public void Given_SingleCachedItem_When_ItsSetInCache_Then_SameValueCanBeRetrievedFromCache()
+        public async void Given_SingleCachedItem_When_ItsSetInCache_Then_SameValueCanBeRetrievedFromCache()
         {
             var cacheKey = Guid.NewGuid().ToString();
             var cachedItem = CachedItemMother.Random();
             using (var cache = CacheMother.Default())
             {
-                cache.SetCachedItem(cacheKey, cachedItem, TimeSpan.FromSeconds(10));
+                await cache.SetCachedItemAsync(cacheKey, cachedItem, TimeSpan.FromSeconds(10));
             }
 
             using (var cache2 = CacheMother.Default())

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Threading.Tasks;
 using LxUtilities.Definitions.Caching;
 using LxUtilities.Definitions.Serialization;
 using LxUtilities.Services.Caching.Redis.Config;
@@ -7,7 +8,7 @@ using StackExchange.Redis;
 
 namespace LxUtilities.Services.Caching.Redis
 {
-    public class Cache : CacheDatabase, IDisposable, ICacheWithTransactions
+    public class Cache : CacheDatabase, ICacheWithTransactions
     {
         public Cache(ISerializer serializer, ICacheConfig configuration = null) : base(
             () =>
@@ -55,7 +56,7 @@ namespace LxUtilities.Services.Caching.Redis
         {
         }
 
-        public bool ExecuteTransaction(Action<ICacheWithHashes> transactedOperations)
+        public bool ExecuteTransaction(Func<ICacheWithHashes, Task> transactedOperations)
         {
             if (transactedOperations == null)
                 return false;
@@ -69,9 +70,5 @@ namespace LxUtilities.Services.Caching.Redis
             return committed;
         }
 
-        public void Dispose()
-        {
-            ConnectionMultiplexer.Dispose();
-        }
     }
 }
