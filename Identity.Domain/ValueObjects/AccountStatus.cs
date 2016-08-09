@@ -1,28 +1,28 @@
-﻿using System.ComponentModel.DataAnnotations;
-using LxUtilities.Definitions.Core.ValueObject;
-using LxUtilities.Services.Constants;
+﻿using LxUtilities.Definitions.Core.ValueObject;
 
 namespace Identity.Domain.ValueObjects
 {
-    public class AccountStatus : IValueObject<string>
+    public enum AccountStatusOption
     {
-        public AccountStatus(string value = Constants.Unknown)
+        Unknown = 0,
+        PendingAcceptance = 100,
+        Active = 200,
+        Suspended = 300,
+        Closed = 400
+    }
+
+    public class AccountStatus : EnumBackedValueObject<AccountStatusOption>
+    {
+        public AccountStatus() : base(30)
         {
-            SetValue(value);
         }
 
-        [MaxLength(30)]
-        public string Value { get; protected set; }
-
-        public void SetValue(string value)
+        public AccountStatus(string value) : base(value, 30)
         {
-            Value = StringConstantHelper.GetValue<Constants>(value, Constants.Unknown);
         }
 
-        public class Constants
+        public AccountStatus(AccountStatusOption value) : base(value, 30)
         {
-            public const string Unknown = "Unknown", PendingAcceptance = "PendingAcceptance", Active = "Active",
-                Suspended = "Suspended", Closed = "Closed";
         }
     }
 }

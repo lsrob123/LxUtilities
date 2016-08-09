@@ -59,6 +59,10 @@
     <Compile Include="Migrations\201608071427053_Created.Designer.cs">
       <DependentUpon>201608071427053_Created.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608090801047_AddedAccountStatus.cs" />
+    <Compile Include="Migrations\201608090801047_AddedAccountStatus.Designer.cs">
+      <DependentUpon>201608090801047_AddedAccountStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="EF\Models\IdentityUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,6 +92,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608071427053_Created.resx">
       <DependentUpon>201608071427053_Created.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608090801047_AddedAccountStatus.resx">
+      <DependentUpon>201608090801047_AddedAccountStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

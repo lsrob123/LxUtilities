@@ -54,6 +54,7 @@
     <Compile Include="Core\Messaging\Mediator.cs" />
     <Compile Include="Core\Messaging\MediatorLocator.cs" />
     <Compile Include="Core\Messaging\MediatorMessageHandlerBase.cs" />
+    <Compile Include="Core\ValueObject\EnumBackedValueObject.cs" />
     <Compile Include="Core\ValueObject\GenericValueObjectBase.cs" />
     <Compile Include="Core\Domain\Messaging\IDomainEvent.cs" />
     <Compile Include="Core\Domain\Entity\IEntity.cs" />
