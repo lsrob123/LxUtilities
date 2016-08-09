@@ -1,5 +1,8 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 using Identity.Domain;
+using Identity.Domain.Entities;
 using Identity.Persistence.EF.Models;
 using LxUtilities.Services.Mapping.AutoMapper;
 using LxUtilities.Services.Persistence.EF;
@@ -23,7 +26,9 @@ namespace Identity.Persistence.EF.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //TODO: add more indexes
             modelBuilder.Configurations.Add(new GenericEfTypeConfig<User, IdentityUser>());
+                
 
             base.OnModelCreating(modelBuilder);
         }

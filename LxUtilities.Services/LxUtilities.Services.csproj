@@ -91,6 +91,7 @@
     <Compile Include="Caching\Redis\Config\CacheHost.cs" />
     <Compile Include="Caching\Redis\Config\CacheHostCollection.cs" />
     <Compile Include="Caching\Redis\Config\ICacheConfig.cs" />
+    <Compile Include="Constants\StringConstantHelper.cs" />
     <Compile Include="Crypto\CryptoService.cs" />
     <Compile Include="Crypto\DefaultConfigCrypto.cs" />
     <Compile Include="Crypto\DefaultCryptoFactory.cs" />

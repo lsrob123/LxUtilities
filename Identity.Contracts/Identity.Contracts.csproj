@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F55D3996-9E63-4DD2-A4A1-6BEC2106E8DD}</ProjectGuid>
+    <ProjectGuid>{98DB7FBA-B379-4D9A-9E92-01B296070127}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Identity.Domain</RootNamespace>
-    <AssemblyName>Identity.Domain</AssemblyName>
+    <RootNamespace>Identity.Contracts</RootNamespace>
+    <AssemblyName>Identity.Contracts</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,19 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValueObjects\AccountStatus.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LxUtilities.Definitions\LxUtilities.Definitions.csproj">
-      <Project>{87ab8c51-d350-4655-a0da-fff04ba5b69d}</Project>
-      <Name>LxUtilities.Definitions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LxUtilities.Services\LxUtilities.Services.csproj">
-      <Project>{DC54A4EC-DC64-45CC-8BA6-CFDFCEE3CA4D}</Project>
-      <Name>LxUtilities.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

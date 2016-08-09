@@ -1,5 +1,7 @@
 ﻿using System;
 using Identity.Domain;
+using Identity.Domain.Entities;
+using Identity.Domain.ValueObjects;
 using LxUtilities.Services.Caching.Redis;
 using LxUtilities.Services.Mapping.AutoMapper;
 using LxUtilities.Services.Serialization;
@@ -16,7 +18,7 @@ namespace Identity.Persistence.Tests
         public void Given_User_When_SetUserCalled_Then_UserPersisted(bool bypassCache)
         {
             var user = new User(Guid.NewGuid(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(),
-                Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+                Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), new AccountStatus());
 
             var serializer = new JsonSerializer();
             var mappingService = new MappingService();

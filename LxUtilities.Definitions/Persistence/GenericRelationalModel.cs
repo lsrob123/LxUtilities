@@ -1,4 +1,5 @@
-﻿using LxUtilities.Definitions.Core.Domain.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using LxUtilities.Definitions.Core.Domain.Entity;
 
 namespace LxUtilities.Definitions.Persistence
 {
@@ -14,6 +15,7 @@ namespace LxUtilities.Definitions.Persistence
             SetEntity(entity);
         }
 
+        [Required]
         public TEntity Entity { get; protected set; }
         public long Id { get; protected set; }
 
