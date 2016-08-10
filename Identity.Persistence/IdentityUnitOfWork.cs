@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Identity.Domain;
-using Identity.Domain.Entities;
 using Identity.Persistence.EF;
 using Identity.Persistence.EF.Context;
 using LxUtilities.Definitions.Caching;

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Identity.Contracts.Data;
 using Identity.Domain.ValueObjects;
 using LxUtilities.Definitions.Core.Domain.Entity;
 
 namespace Identity.Domain.Entities
 {
-    public class User : EntityBase
+    public class User : EntityBase, IUser
     {
         public User()
         {

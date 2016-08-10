@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
-using Identity.Domain;
-using Identity.Domain.Entities;
 using Identity.Persistence.EF.Models;
 using LxUtilities.Services.Mapping.AutoMapper;
 using LxUtilities.Services.Persistence.EF;
@@ -13,7 +11,9 @@ namespace Identity.Persistence.EF.Context
     {
         static IdentityDbContext()
         {
-            MappingService.AddEntityAndRelationalModelMap<User, IdentityUser>();
+            //MappingService.AddEntityAndRelationalModelMap<User, IdentityUser>();
+
+            MappingService.AddEntityAndRelationalModelMap<>();
         }
 
         public IdentityDbContext() : this("name=Identity")

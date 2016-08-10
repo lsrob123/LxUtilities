@@ -47,6 +47,10 @@
     <Compile Include="ValueObjects\AccountStatus.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Identity.Contracts\Identity.Contracts.csproj">
+      <Project>{98db7fba-b379-4d9a-9e92-01b296070127}</Project>
+      <Name>Identity.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LxUtilities.Definitions\LxUtilities.Definitions.csproj">
       <Project>{87ab8c51-d350-4655-a0da-fff04ba5b69d}</Project>
       <Name>LxUtilities.Definitions</Name>
