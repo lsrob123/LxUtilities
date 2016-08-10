@@ -31,13 +31,25 @@ namespace LxUtilities.Services.Persistence.EF
         /// </summary>
         /// <typeparam name="TProperty">Property type, must be a primitive type</typeparam>
         /// <param name="propertyExpression">Expression&lt;Func&lt;T, TProperty&gt;&gt;</param>
-        protected void SetUniqueIndex<TProperty>(
+        public GenericEfTypeConfig<TEntity, TRelationalModel> SetUniqueIndex<TProperty>(
             Expression<Func<TRelationalModel, TProperty>> propertyExpression)
             where TProperty : struct
         {
             Property(propertyExpression).IsRequired()
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName,
                     new IndexAnnotation(new IndexAttribute {IsUnique = true}));
+
+            return this;
+        }
+
+        public GenericEfTypeConfig<TEntity, TRelationalModel> SetIndex<TProperty>(
+            Expression<Func<TRelationalModel, TProperty>> propertyExpression)
+            where TProperty : struct
+        {
+            Property(propertyExpression)
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute[] {}));
+
+            return this;
         }
     }
 }

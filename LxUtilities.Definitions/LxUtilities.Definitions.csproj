@@ -30,7 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +54,7 @@
     <Compile Include="Core\Messaging\Mediator.cs" />
     <Compile Include="Core\Messaging\MediatorLocator.cs" />
     <Compile Include="Core\Messaging\MediatorMessageHandlerBase.cs" />
+    <Compile Include="Core\ValueObject\EnumBackedValueObject.cs" />
     <Compile Include="Core\ValueObject\GenericValueObjectBase.cs" />
     <Compile Include="Core\Domain\Messaging\IDomainEvent.cs" />
     <Compile Include="Core\Domain\Entity\IEntity.cs" />

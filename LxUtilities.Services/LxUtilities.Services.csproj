@@ -91,6 +91,7 @@
     <Compile Include="Caching\Redis\Config\CacheHost.cs" />
     <Compile Include="Caching\Redis\Config\CacheHostCollection.cs" />
     <Compile Include="Caching\Redis\Config\ICacheConfig.cs" />
+    <Compile Include="Constants\StringConstantHelper.cs" />
     <Compile Include="Crypto\CryptoService.cs" />
     <Compile Include="Crypto\DefaultConfigCrypto.cs" />
     <Compile Include="Crypto\DefaultCryptoFactory.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Persistence\EF\UnitOfWorkWithEfAndCache.cs" />
     <Compile Include="Persistence\UnitOfWorkBase.cs" />
     <Compile Include="Persistence\UnitOfWorkFactoryBase.cs" />
+    <Compile Include="Serialization\FullJsonContractResolver.cs" />
     <Compile Include="ServiceBus\_Shared\BusReadyEvent.cs" />
     <Compile Include="Persistence\EF\EfDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
