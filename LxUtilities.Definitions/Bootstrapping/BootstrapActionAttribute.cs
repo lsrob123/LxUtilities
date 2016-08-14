@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LxUtilities.Services.Bootstrapping
+namespace LxUtilities.Definitions.Bootstrapping
 {
     public class BootstrapActionAttribute : Attribute
     {

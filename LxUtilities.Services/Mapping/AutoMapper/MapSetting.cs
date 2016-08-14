@@ -3,30 +3,29 @@ using AutoMapper;
 
 namespace LxUtilities.Services.Mapping.AutoMapper
 {
-public     class MapSetting
+    public class MapSetting
     {
-        public Type Source { get; }
-
-        public Type Destination { get; }
-
-        public Func<IMappingExpression, IMappingExpression> CustomMap { get; }
-
-        public MapSetting(Type source, Type destination, Func<IMappingExpression, IMappingExpression> customMap)
+        public MapSetting(Type source, Type destination,
+            Func<IMappingExpression, IMappingExpression> customMapFunc = null)
         {
             Source = source;
             Destination = destination;
-            CustomMap = customMap;
+            CustomMap = customMapFunc;
         }
 
-        public MapSetting(Type source, Type destination, Action<IMappingExpression> customMap)
+        public MapSetting(Type source, Type destination, Action<IMappingExpression> customMapAction = null)
         {
             Source = source;
             Destination = destination;
             CustomMap = expression =>
             {
-                customMap(expression);
+                customMapAction?.Invoke(expression);
                 return expression;
             };
         }
+
+        public Type Source { get; }
+        public Type Destination { get; }
+        public Func<IMappingExpression, IMappingExpression> CustomMap { get; }
     }
 }

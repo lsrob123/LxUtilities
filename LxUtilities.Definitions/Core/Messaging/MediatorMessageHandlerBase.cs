@@ -8,7 +8,7 @@ namespace LxUtilities.Definitions.Core.Messaging
         protected MediatorMessageHandlerBase(IMediator mediator = null)
         {
             if (mediator == null)
-                mediator = MediatorLocator.Default;
+                mediator = Definitions.Core.Messaging.Mediator.Default;
 
             mediator.Subscribe(typeof (TMessage), this);
         }

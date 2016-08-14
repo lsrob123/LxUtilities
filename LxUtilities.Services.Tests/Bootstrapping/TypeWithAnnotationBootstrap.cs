@@ -1,4 +1,5 @@
-﻿using LxUtilities.Services.Bootstrapping;
+﻿using LxUtilities.Definitions.Bootstrapping;
+using LxUtilities.Services.Bootstrapping;
 
 namespace LxUtilities.Services.Tests.Bootstrapping
 {

@@ -15,7 +15,7 @@ namespace LxUtilities.Services.Tests.Domain._ObjectMothers
         public void MakeSomeChange()
         {
             SomeValue = Guid.NewGuid();
-            RaiseEvent(new SomeDomainEvent(this));
+            Publish(new SomeDomainEvent(this));
         }
-    }
+   }
 }

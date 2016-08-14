@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapping\BootstrapActionAttribute.cs" />
     <Compile Include="Caching\CacheKeyHelper.cs" />
     <Compile Include="Caching\ICacheWithHashes.cs" />
     <Compile Include="Caching\ICache.cs" />
@@ -52,8 +53,8 @@
     <Compile Include="Core\Messaging\IMediator.cs" />
     <Compile Include="Core\Messaging\IMessageHandler.cs" />
     <Compile Include="Core\Messaging\Mediator.cs" />
-    <Compile Include="Core\Messaging\MediatorLocator.cs" />
     <Compile Include="Core\Messaging\MediatorMessageHandlerBase.cs" />
+    <Compile Include="Core\Messaging\MediatorReadyEvent.cs" />
     <Compile Include="Core\ValueObject\EnumBackedValueObject.cs" />
     <Compile Include="Core\ValueObject\GenericValueObjectBase.cs" />
     <Compile Include="Core\Domain\Messaging\IDomainEvent.cs" />

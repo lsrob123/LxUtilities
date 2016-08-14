@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using Identity.Domain.Entities;
 using Identity.Persistence.EF.Models;
+using LxUtilities.Definitions.Bootstrapping;
 using LxUtilities.Services.Bootstrapping;
 using LxUtilities.Services.Mapping.AutoMapper;
 using LxUtilities.Services.Persistence.EF;

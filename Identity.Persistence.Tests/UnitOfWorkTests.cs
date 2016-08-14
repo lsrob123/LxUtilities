@@ -14,7 +14,7 @@ namespace Identity.Persistence.Tests
     {
         public UnitOfWorkTests()
         {
-            Bootstrapper.StartSync().Wait();
+            Bootstrapper.Start();
         }
 
         [Test]

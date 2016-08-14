@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using LxUtilities.Definitions.Bootstrapping;
 
 namespace LxUtilities.Services.Bootstrapping
 {
@@ -15,20 +16,19 @@ namespace LxUtilities.Services.Bootstrapping
             Actions.AddRange(actions);
         }
 
-        public static async Task StartSync()
+        public static void Start()
         {
             var actions = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(assembly => assembly.GetTypes())
                 .SelectMany(type => type.GetMethods())
                 .Where(method => method.IsStatic && method.GetCustomAttribute<BootstrapActionAttribute>() != null)
-                .Select(method => new Action(() => method.Invoke(null, new object[0])))
-                ;
+                .Select(method => new Action(() => method.Invoke(null, new object[0])));
 
             Actions.AddRange(actions);
 
             foreach (var action in Actions)
             {
-                await Task.Run(action);
+                action();
             }
         }
     }
