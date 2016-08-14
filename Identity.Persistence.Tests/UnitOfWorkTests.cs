@@ -1,5 +1,4 @@
 ﻿using System;
-using Identity.Domain;
 using Identity.Domain.Entities;
 using Identity.Domain.ValueObjects;
 using LxUtilities.Services.Bootstrapping;
