@@ -2,6 +2,7 @@
 using Identity.Domain;
 using Identity.Domain.Entities;
 using Identity.Domain.ValueObjects;
+using LxUtilities.Services.Bootstrapping;
 using LxUtilities.Services.Caching.Redis;
 using LxUtilities.Services.Mapping.AutoMapper;
 using LxUtilities.Services.Serialization;
@@ -12,6 +13,11 @@ namespace Identity.Persistence.Tests
     [TestFixture]
     public class UnitOfWorkTests
     {
+        public UnitOfWorkTests()
+        {
+            Bootstrapper.StartSync().Wait();
+        }
+
         [Test]
         [TestCase(true)]
         [TestCase(false)]

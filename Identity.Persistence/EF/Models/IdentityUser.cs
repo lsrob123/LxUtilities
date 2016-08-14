@@ -1,4 +1,4 @@
-﻿using Identity.Domain;
+﻿using Identity.Domain.Entities;
 using LxUtilities.Definitions.Persistence;
 
 namespace Identity.Persistence.EF.Models

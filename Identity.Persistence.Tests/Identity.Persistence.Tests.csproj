@@ -68,6 +68,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Identity.Contracts\Identity.Contracts.csproj">
+      <Project>{98DB7FBA-B379-4D9A-9E92-01B296070127}</Project>
+      <Name>Identity.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj">
       <Project>{f55d3996-9e63-4dd2-a4a1-6bec2106e8dd}</Project>
       <Name>Identity.Domain</Name>

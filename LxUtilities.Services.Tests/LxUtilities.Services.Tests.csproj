@@ -65,6 +65,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapping\BootstrapingTests.cs" />
+    <Compile Include="Bootstrapping\BootstrapState.cs" />
+    <Compile Include="Bootstrapping\TypeWithAnnotationBootstrap.cs" />
+    <Compile Include="Bootstrapping\TypeWithRegisteredBootstrapAction.cs" />
     <Compile Include="Cache\Redis\RedisCacheTests.cs" />
     <Compile Include="Cache\Redis\_ObjectMothers\CachedItemMother.cs" />
     <Compile Include="Cache\Redis\_ObjectMothers\CacheMother.cs" />

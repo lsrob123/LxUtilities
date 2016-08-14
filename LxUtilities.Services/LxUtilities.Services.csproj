@@ -85,6 +85,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapping\Bootstrapper.cs" />
+    <Compile Include="Bootstrapping\BootstrapActionAttribute.cs" />
     <Compile Include="Caching\Redis\Cache.cs" />
     <Compile Include="Caching\Redis\CacheDatabase.cs" />
     <Compile Include="Caching\Redis\Config\CacheConfigSectionHandler.cs" />

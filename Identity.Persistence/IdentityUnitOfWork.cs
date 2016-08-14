@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Identity.Domain;
+using Identity.Domain.Entities;
 using Identity.Persistence.EF;
 using Identity.Persistence.EF.Context;
 using LxUtilities.Definitions.Caching;
@@ -94,21 +94,19 @@ namespace Identity.Persistence
 
             //Cache.ExecuteTransaction(async x => await SetUserCachedItems(x, savedUser));
 
-            Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Email), savedUser.Key).Wait();
-            Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Username), savedUser.Key).Wait();
-            Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Mobile), savedUser.Key).Wait();
-
             var cacheKey = CacheKeyHelper.GetCacheKey<User>(savedUser.Key);
-            Cache.SetCachedItemAsync(cacheKey, savedUser).Wait();
-            var u = Cache.GetCachedItem<User>(cacheKey);
+            Task.WaitAll(Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Email), savedUser.Key),
+                Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Username), savedUser.Key),
+                Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Mobile), savedUser.Key),
+                Cache.SetCachedItemAsync(cacheKey, savedUser));
         }
 
-        private static async Task SetUserCachedItems(ICache x, User savedUser)
-        {
-            await x.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Email), savedUser.Key);
-            await x.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Username), savedUser.Key);
-            await x.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Mobile), savedUser.Key);
-            await x.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Key), savedUser);
-        }
+        //private static async Task SetUserCachedItems(ICache x, User savedUser)
+        //{
+        //    await x.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Email), savedUser.Key);
+        //    await x.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Username), savedUser.Key);
+        //    await x.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Mobile), savedUser.Key);
+        //    await x.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(savedUser.Key), savedUser);
+        //}
     }
 }

@@ -80,6 +80,10 @@
       <Project>{98db7fba-b379-4d9a-9e92-01b296070127}</Project>
       <Name>Identity.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj">
+      <Project>{f55d3996-9e63-4dd2-a4a1-6bec2106e8dd}</Project>
+      <Name>Identity.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LxUtilities.Definitions\LxUtilities.Definitions.csproj">
       <Project>{87ab8c51-d350-4655-a0da-fff04ba5b69d}</Project>
       <Name>LxUtilities.Definitions</Name>
