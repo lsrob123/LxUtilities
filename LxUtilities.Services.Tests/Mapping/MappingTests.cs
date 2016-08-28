@@ -27,17 +27,6 @@ namespace LxUtilities.Services.Tests.Mapping
         public Guid SomeData { get; protected set; }
     }
 
-    public class SomeRelationalModel : GenericRelationalModel<SomeEntity>
-    {
-        public SomeRelationalModel()
-        {
-        }
-
-        public SomeRelationalModel(SomeEntity entity) : base(entity)
-        {
-        }
-    }
-
 
     [TestFixture]
     public class MappingTests
@@ -45,8 +34,7 @@ namespace LxUtilities.Services.Tests.Mapping
         [BootstrapAction]
         public static void CreateMaps()
         {
-            MappingService.AddMaps(new MapSetting(typeof (SomeEntity), typeof (SomeRelationalModel),
-                expression => expression.ConstructUsing(source => new SomeRelationalModel(source as SomeEntity))));
+            MappingService.AddMaps();
         }
 
         static MappingTests()
@@ -55,7 +43,7 @@ namespace LxUtilities.Services.Tests.Mapping
         }
 
         [Test]
-        public void Given_EntityObject_When_CallMapMethodIs_Then_ShouldBeMappedToExpectedValueObject()
+        public void Given_EntityObject_When_CallMapMethod_Then_ShouldBeMappedToExpectedValueObject()
         {
             var mappingService = new MappingService();
 
@@ -66,17 +54,5 @@ namespace LxUtilities.Services.Tests.Mapping
             Assert.AreEqual(someEntity.SomeData, valueObject.SomeData);
         }
 
-        [Test]
-        public void Given_EntityObject_When_CallMapMethodIs_Then_ShouldBeMappedToExpectedRelationalModel()
-        {
-            var mappingService = new MappingService();
-
-            var someEntity = new SomeEntity(Guid.NewGuid(), Guid.NewGuid());
-
-            var relationalModel = (SomeRelationalModel) mappingService.Map(someEntity, typeof (SomeRelationalModel));
-
-            Assert.AreEqual(someEntity.Key, relationalModel.Entity.Key);
-            Assert.AreEqual(someEntity.SomeData, relationalModel.Entity.SomeData);
-        }
     }
 }

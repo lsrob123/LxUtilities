@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,7 +56,6 @@
     <Compile Include="Core\Messaging\Mediator.cs" />
     <Compile Include="Core\Messaging\MediatorMessageHandlerBase.cs" />
     <Compile Include="Core\Messaging\MediatorReadyEvent.cs" />
-    <Compile Include="Core\ValueObject\EnumBackedValueObject.cs" />
     <Compile Include="Core\ValueObject\GenericValueObjectBase.cs" />
     <Compile Include="Core\Domain\Messaging\IDomainEvent.cs" />
     <Compile Include="Core\Domain\Entity\IEntity.cs" />
@@ -67,12 +67,10 @@
     <Compile Include="Core\DTOs\IResponse.cs" />
     <Compile Include="Crypto\IConfigCrypto.cs" />
     <Compile Include="Crypto\ICryptoService.cs" />
+    <Compile Include="Enumeration\StringEnumeration.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Mapping\IMappingService.cs" />
-    <Compile Include="Persistence\GenericRelationalModel.cs" />
-    <Compile Include="Persistence\IRelationalModel.cs" />
     <Compile Include="Persistence\IRelationalDataStore.cs" />
-    <Compile Include="Persistence\IStoredEntityModel.cs" />
     <Compile Include="Persistence\IUnitOfWork.cs" />
     <Compile Include="Persistence\IUnitOfWorkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using LxUtilities.Definitions.ServiceBus;
 using LxUtilities.Definitions.ServiceBus.Messges;
-using LxUtilities.Services.ServiceBus._Shared;
 using MassTransit;
 using MassTransit.Util;
 

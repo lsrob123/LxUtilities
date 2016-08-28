@@ -4,7 +4,7 @@ using LxUtilities.Services.Persistence.EF;
 
 namespace Identity.Persistence.EF
 {
-    public class IdentityDataStore : EfDataStore<IdentityDbContext>
+    public class IdentityDataStore : DataStore<IdentityDbContext>
     {
         public IdentityDataStore(IdentityDbContext dbContext, IMappingService mappingService)
             : base(dbContext, mappingService)

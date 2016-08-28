@@ -7,7 +7,7 @@ using LxUtilities.Services.Persistence;
 
 namespace Identity.Persistence
 {
-    public class IdentityUnitOfWorkFactory : UnitOfWorkFactoryBase<IdentityUnitOfWork>
+    public class IdentityUnitOfWorkFactory : UnitOfWorkFactoryBase<IdentityDbContextUnitOfWork>
     {
         protected readonly Func<ICacheWithTransactions> CacheFactory;
         protected readonly string ConnectionString;
@@ -20,9 +20,9 @@ namespace Identity.Persistence
             MappingService = mappingService;
         }
 
-        protected override IdentityUnitOfWork GetUnitOfWork()
+        protected override IdentityDbContextUnitOfWork GetUnitOfWork()
         {
-            return new IdentityUnitOfWork(() => new IdentityDbContext(ConnectionString), CacheFactory, MappingService);
+            return new IdentityDbContextUnitOfWork(() => new IdentityDbContext(ConnectionString), CacheFactory, MappingService);
         }
     }
 }

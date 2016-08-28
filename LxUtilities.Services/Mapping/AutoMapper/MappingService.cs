@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using LxUtilities.Definitions.Core.Domain.Entity;
 using LxUtilities.Definitions.Mapping;
-using LxUtilities.Definitions.Persistence;
 
 namespace LxUtilities.Services.Mapping.AutoMapper
 {
     public class MappingService : IMappingService
     {
-        protected static readonly ConcurrentDictionary<Type, Type> EntityToRelationalModelMaps =
-            new ConcurrentDictionary<Type, Type>();
-
         public TDestination Map<TDestination>(object source)
         {
             return Mapper.Map<TDestination>(source);
@@ -24,28 +18,7 @@ namespace LxUtilities.Services.Mapping.AutoMapper
             return Mapper.Map(source.GetType(), destinationType);
         }
 
-        public IRelationalModel<TEntity> Map<TEntity>(TEntity entity)
-            where TEntity : class, IEntity
-        {
-            var entityType = typeof (TEntity);
-            Type relationalModelType;
-            if (!EntityToRelationalModelMaps.TryGetValue(entityType, out relationalModelType))
-                return null;
-
-            var mappedObject = Map(entity, relationalModelType);
-            var relationalModel = mappedObject as IRelationalModel<TEntity>;
-            return relationalModel;
-        }
-
-        public Type GetRelationalModelType(Type entityType)
-        {
-            Type relationalModelType;
-            return EntityToRelationalModelMaps.TryGetValue(entityType, out relationalModelType)
-                ? relationalModelType
-                : null;
-        }
-
-        public static void AddMaps(IEnumerable<MapSetting> maps)
+        public static void AddMaps(IEnumerable<MapSetting> maps = null)
         {
             AddMapsInternal(maps);
         }
@@ -54,23 +27,18 @@ namespace LxUtilities.Services.Mapping.AutoMapper
         {
             Mapper.Initialize(config =>
             {
+                config.CreateMissingTypeMaps = true;
                 config.ForAllMaps((typeMap, expression) =>
                     expression.IgnoreAllSourcePropertiesWithAnInaccessibleSetter());
+
+                if (maps == null)
+                    return;
+
                 foreach (var map in maps.ToList())
                 {
                     RegisterMap(config, map.Source, map.Destination, map.CustomMap);
                 }
             });
-        }
-
-        public static void AddEntityAndRelationalModelMap<TEntity, TRelationalModel>()
-            where TEntity : class, IEntity
-            where TRelationalModel : IRelationalModel<TEntity>, new()
-        {
-            var entityType = typeof (TEntity);
-            var relationalModelType = typeof (TRelationalModel);
-
-            EntityToRelationalModelMaps.TryAdd(entityType, relationalModelType);
         }
 
         public static void AddMaps(params MapSetting[] maps)

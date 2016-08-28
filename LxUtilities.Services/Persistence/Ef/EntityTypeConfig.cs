@@ -6,24 +6,21 @@ using System.Data.Entity.ModelConfiguration;
 using System.Globalization;
 using System.Linq.Expressions;
 using LxUtilities.Definitions.Core.Domain.Entity;
-using LxUtilities.Definitions.Persistence;
 
 namespace LxUtilities.Services.Persistence.EF
 {
-    public class GenericEfTypeConfig<TEntity, TRelationalModel> : EntityTypeConfiguration<TRelationalModel>
-        where TRelationalModel : GenericRelationalModel<TEntity>
+    public class EntityTypeConfig<TEntity> : EntityTypeConfiguration<TEntity>
         where TEntity : class, IEntity
     {
-        public GenericEfTypeConfig(string tableName = null)
+        public EntityTypeConfig(string tableName = null)
         {
             if (string.IsNullOrWhiteSpace(tableName))
                 tableName = PluralizationService.CreateService(CultureInfo.GetCultureInfo("en-us"))
-                    .Pluralize(typeof (TRelationalModel).Name);
+                    .Pluralize(typeof (TEntity).Name);
 
             ToTable(tableName);
 
-            HasKey(t => t.Id);
-            SetUniqueIndex(t => t.Entity.Key);
+            SetUniqueIndex(t => t.Key);
         }
 
         /// <summary>
@@ -31,8 +28,8 @@ namespace LxUtilities.Services.Persistence.EF
         /// </summary>
         /// <typeparam name="TProperty">Property type, must be a primitive type</typeparam>
         /// <param name="propertyExpression">Expression&lt;Func&lt;T, TProperty&gt;&gt;</param>
-        public GenericEfTypeConfig<TEntity, TRelationalModel> SetUniqueIndex<TProperty>(
-            Expression<Func<TRelationalModel, TProperty>> propertyExpression)
+        public EntityTypeConfig<TEntity> SetUniqueIndex<TProperty>(
+            Expression<Func<TEntity, TProperty>> propertyExpression)
             where TProperty : struct
         {
             Property(propertyExpression).IsRequired()
@@ -42,8 +39,8 @@ namespace LxUtilities.Services.Persistence.EF
             return this;
         }
 
-        public GenericEfTypeConfig<TEntity, TRelationalModel> SetIndex<TProperty>(
-            Expression<Func<TRelationalModel, TProperty>> propertyExpression)
+        public EntityTypeConfig<TEntity> SetIndex<TProperty>(
+            Expression<Func<TEntity, TProperty>> propertyExpression)
             where TProperty : struct
         {
             Property(propertyExpression)

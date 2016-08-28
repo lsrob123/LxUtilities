@@ -10,9 +10,9 @@ namespace LxUtilities.Definitions.Mapping
 
         object Map(object source, Type destinationType);
 
-        IRelationalModel<TEntity> Map<TEntity>(TEntity entity)
-            where TEntity : class, IEntity;
+        //IRelationalModel<TEntity> Map<TEntity>(TEntity entity)
+        //    where TEntity : class, IEntity;
 
-        Type GetRelationalModelType(Type entityType);
+        //Type GetRelationalModelType(Type entityType);
     }
 }

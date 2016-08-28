@@ -1,27 +1,22 @@
-﻿using LxUtilities.Definitions.Core.ValueObject;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using LxUtilities.Definitions.Enumeration;
 
 namespace Identity.Domain.ValueObjects
 {
-    public enum AccountStatusOption
+    [ComplexType]
+    public class AccountStatus : StringEnumeration
     {
-        Unknown = 0,
-        PendingAcceptance = 100,
-        Active = 200,
-        Suspended = 300,
-        Closed = 400
-    }
+        public static readonly AccountStatus Unknown = new AccountStatus("Unknown");
+        public static readonly AccountStatus PendingAcceptance = new AccountStatus("PendingAcceptance");
+        public static readonly AccountStatus Active = new AccountStatus("Active");
+        public static readonly AccountStatus Suspended = new AccountStatus("Suspended");
+        public static readonly AccountStatus Closed = new AccountStatus("Closed");
 
-    public class AccountStatus : EnumBackedValueObject<AccountStatusOption>
-    {
-        public AccountStatus() : base(30)
+        private AccountStatus() : this("Unknown")
         {
         }
 
-        public AccountStatus(string value) : base(value, 30)
-        {
-        }
-
-        public AccountStatus(AccountStatusOption value) : base(value, 30)
+        private AccountStatus(string value) : base(value)
         {
         }
     }

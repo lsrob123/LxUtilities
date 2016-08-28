@@ -3,16 +3,16 @@ using System.Data.Entity;
 using LxUtilities.Definitions.Caching;
 using LxUtilities.Definitions.Mapping;
 
-namespace LxUtilities.Services.Persistence.Ef
+namespace LxUtilities.Services.Persistence.EF
 {
-    public class UnitOfWorkWithEfAndCache<TDbContext> : UnitOfWorkBase
+    public class DbContextUnitOfWork<TDbContext> : UnitOfWorkBase
         where TDbContext : DbContext
     {
         protected readonly ICacheWithTransactions Cache;
         protected readonly TDbContext Context;
         protected readonly IMappingService MappingService;
 
-        public UnitOfWorkWithEfAndCache(Func<TDbContext> contextFactory, Func<ICacheWithTransactions> cacheFactory,
+        public DbContextUnitOfWork(Func<TDbContext> contextFactory, Func<ICacheWithTransactions> cacheFactory,
             IMappingService mappingService)
         {
             Cache = cacheFactory();

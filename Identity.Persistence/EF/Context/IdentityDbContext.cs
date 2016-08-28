@@ -1,9 +1,6 @@
 ﻿using System.Data.Entity;
 using Identity.Domain.Entities;
-using Identity.Persistence.EF.Models;
 using LxUtilities.Definitions.Bootstrapping;
-using LxUtilities.Services.Bootstrapping;
-using LxUtilities.Services.Mapping.AutoMapper;
 using LxUtilities.Services.Persistence.EF;
 
 namespace Identity.Persistence.EF.Context
@@ -13,7 +10,6 @@ namespace Identity.Persistence.EF.Context
         [BootstrapAction]
         static IdentityDbContext()
         {
-            MappingService.AddEntityAndRelationalModelMap<User, IdentityUser>();
         }
 
         public IdentityDbContext() : this("name=Identity")
@@ -26,9 +22,7 @@ namespace Identity.Persistence.EF.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //TODO: add more indexes
-            var usersConfig = new GenericEfTypeConfig<User, IdentityUser>();
-            modelBuilder.Configurations.Add(usersConfig);
+            modelBuilder.Configurations.Add(new EntityTypeConfig<User>());
 
             base.OnModelCreating(modelBuilder);
         }

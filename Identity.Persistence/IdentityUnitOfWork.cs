@@ -5,15 +5,16 @@ using Identity.Persistence.EF;
 using Identity.Persistence.EF.Context;
 using LxUtilities.Definitions.Caching;
 using LxUtilities.Definitions.Mapping;
-using LxUtilities.Services.Persistence.Ef;
+using LxUtilities.Services.Persistence;
+using LxUtilities.Services.Persistence.EF;
 
 namespace Identity.Persistence
 {
-    public class IdentityUnitOfWork : UnitOfWorkWithEfAndCache<IdentityDbContext>
+    public class IdentityDbContextUnitOfWork : DbContextUnitOfWork<IdentityDbContext>
     {
         protected readonly IdentityDataStore DataStore;
 
-        public IdentityUnitOfWork(Func<IdentityDbContext> contextFactory, Func<ICacheWithTransactions> cacheFactory,
+        public IdentityDbContextUnitOfWork(Func<IdentityDbContext> contextFactory, Func<ICacheWithTransactions> cacheFactory,
             IMappingService mappingService)
             : base(contextFactory, cacheFactory, mappingService)
         {
@@ -28,7 +29,7 @@ namespace Identity.Persistence
             User user;
             if (bypassCache)
             {
-                user = DataStore.SingleOrDefault<User>(x => x.Entity.Username == username);
+                user = DataStore.SingleOrDefault<User>(x => x.Username == username);
                 return user;
             }
 
@@ -37,7 +38,7 @@ namespace Identity.Persistence
             if (userKey != Guid.Empty)
                 return GetUser(userKey);
 
-            user = DataStore.SingleOrDefault<User>(x => x.Entity.Username == username);
+            user = DataStore.SingleOrDefault<User>(x => x.Username == username);
             Cache.SetCachedItemAsync(cacheKey, user);
             return user;
         }
@@ -50,7 +51,7 @@ namespace Identity.Persistence
             User user;
             if (bypassCache)
             {
-                user = DataStore.SingleOrDefault<User>(x => x.Entity.Email == email);
+                user = DataStore.SingleOrDefault<User>(x => x.Email == email);
                 return user;
             }
 
@@ -59,7 +60,7 @@ namespace Identity.Persistence
             if (userKey != Guid.Empty)
                 return GetUser(userKey);
 
-            user = DataStore.SingleOrDefault<User>(x => x.Entity.Email == email);
+            user = DataStore.SingleOrDefault<User>(x => x.Email == email);
             Cache.SetCachedItemAsync(cacheKey, user);
             return user;
         }
@@ -75,7 +76,7 @@ namespace Identity.Persistence
                     return user;
             }
 
-            user = DataStore.SingleOrDefault<User>(x => x.Entity.Key == userKey);
+            user = DataStore.SingleOrDefault<User>(x => x.Key == userKey);
 
             if (!bypassCache)
             {

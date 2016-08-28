@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 using LxUtilities.Definitions.Core.Domain.Messaging;
 using LxUtilities.Definitions.Core.Messaging;
 
@@ -17,7 +20,13 @@ namespace LxUtilities.Definitions.Core.Domain.Entity
             Key = key;
         }
 
+        [NotMapped]
         public ICollection<IDomainEvent> DomainEvents { get; protected set; }
+
+        [Key]
+        [IgnoreDataMember]
+        public long Id { get; protected set; }
+
         public Guid Key { get; protected set; }
 
         public virtual void SetKey(Guid key)
@@ -25,17 +34,22 @@ namespace LxUtilities.Definitions.Core.Domain.Entity
             Key = key;
         }
 
-        public void Publish(IDomainEvent domainEvent)
+        public virtual void SetId(long id)
         {
-            Mediator.Default.Publish(domainEvent);
+            Id = id;
         }
 
         public virtual void PublishAllDomainEvents()
         {
             foreach (var domainEvent in DomainEvents)
             {
-                Publish(domainEvent);
+                PublishDomainEvent(domainEvent);
             }
+        }
+
+        public void PublishDomainEvent(IDomainEvent domainEvent)
+        {
+            Mediator.Default.Publish(domainEvent);
         }
     }
 }

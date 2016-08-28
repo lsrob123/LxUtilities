@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Identity.Contracts.Data;
 using Identity.Domain.ValueObjects;
 using LxUtilities.Definitions.Core.Domain.Entity;
@@ -10,6 +11,7 @@ namespace Identity.Domain.Entities
     {
         public User()
         {
+            AccountStatus = AccountStatus.Unknown;
         }
 
         public User(Guid userKey, string username, string hashedPassword, string email, string mobile,

@@ -55,16 +55,7 @@
   <ItemGroup>
     <Compile Include="EF\Context\IdentityDbContext.cs" />
     <Compile Include="EF\IdentityDataStore.cs" />
-    <Compile Include="Migrations\201608071427053_Created.cs" />
-    <Compile Include="Migrations\201608071427053_Created.Designer.cs">
-      <DependentUpon>201608071427053_Created.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608090801047_AddedAccountStatus.cs" />
-    <Compile Include="Migrations\201608090801047_AddedAccountStatus.Designer.cs">
-      <DependentUpon>201608090801047_AddedAccountStatus.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="EF\Models\IdentityUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IdentityUnitOfWork.cs" />
     <Compile Include="IdentityUnitOfWorkFactory.cs" />
@@ -93,15 +84,6 @@
       <Name>LxUtilities.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608071427053_Created.resx">
-      <DependentUpon>201608071427053_Created.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608090801047_AddedAccountStatus.resx">
-      <DependentUpon>201608090801047_AddedAccountStatus.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

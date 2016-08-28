@@ -23,7 +23,7 @@ namespace Identity.Persistence.Tests
         public void Given_User_When_SetUserCalled_Then_UserPersisted(bool bypassCache)
         {
             var user = new User(Guid.NewGuid(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(),
-                Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), new AccountStatus());
+                Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), AccountStatus.Active);
 
             var serializer = new JsonSerializer();
             var mappingService = new MappingService();

@@ -4,14 +4,17 @@
     {
         public static string GetCacheKey<T>(object suffix, bool enforceLowercaseToSuffix = true)
         {
-            if (suffix == null)
-                return $"{typeof (T).FullName}";
+            var cacheKey = $"{typeof(T).FullName}";
+            if (suffix != null)
+            {
+                var suffixText = $"{suffix}".Trim();
+                cacheKey = $"{cacheKey}_{suffixText}";
+            }
 
-            var suffixText = $"{suffix}".Trim();
             if (enforceLowercaseToSuffix)
-                suffixText = suffixText.ToLower();
+                cacheKey = cacheKey.ToLower();
 
-            return $"{typeof (T).FullName}_{suffixText}";
+            return cacheKey;
         }
     }
 }
